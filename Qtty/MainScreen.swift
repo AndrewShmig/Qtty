@@ -8,12 +8,31 @@
 
 import UIKit
 
-class MainScreen: UIViewController {
 
-    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        // Custom initialization
+extension UIView {
+    //    функция возвращает каркас для отрисовки стикерной тени для элемента
+    func activateStickerShadow() {
+        var shadowPath = CGPathCreateMutable()
+        
+        CGPathMoveToPoint(shadowPath, nil, 0, 0)
+        CGPathAddLineToPoint(shadowPath, nil, CGRectGetWidth(self.frame), CGPathGetCurrentPoint(shadowPath).y)
+        CGPathAddLineToPoint(shadowPath, nil, CGPathGetCurrentPoint(shadowPath).x, CGRectGetHeight(self.frame))
+        CGPathAddLineToPoint(shadowPath, nil, CGRectGetWidth(self.frame) / 2, 0)
+        CGPathAddLineToPoint(shadowPath, nil, 0, CGRectGetHeight(self.frame))
+        CGPathCloseSubpath(shadowPath)
+        
+        self.layer.shadowColor = UIColor.blackColor().CGColor
+        self.layer.shadowOpacity = 0.6
+        self.layer.shadowRadius = 2.0
+        self.layer.shadowOffset = CGSizeMake(0, 5)
+        self.layer.masksToBounds = false
+        
+        self.layer.cornerRadius = 5.0
     }
+}
+
+
+class MainScreen: UIViewController {
     
     override func loadView()  {
 //        настраиваем вьюху
@@ -59,7 +78,9 @@ class MainScreen: UIViewController {
         authorizationButton.setTitleColor(UIColor(red:0.749, green:0.749, blue:0.749, alpha:1), forState:.Normal)
         authorizationButton.setTitle("Авторизоваться", forState:.Normal)
         authorizationButton.titleLabel.font = UIFont(name:"Helvetica Light", size:25)
-        authorizationButton.layer.shadowPath = self.stickerShadow(forView: authorizationButton)
+        
+        authorizationButton.activateStickerShadow()
+        
         authorizationButton.addTarget(self, action:Selector("authorizationButtonTappedInside:"), forControlEvents:.TouchUpInside)
         authorizationButton.addTarget(self, action:Selector("authorizationButtonTappedOutside:"), forControlEvents:.TouchUpOutside)
         authorizationButton.addTarget(self, action:Selector("authorizationButtonDown:"), forControlEvents:.TouchDown)
@@ -79,33 +100,16 @@ class MainScreen: UIViewController {
     }
     
     func authorizationButtonTappedInside(sender:UIButton) {
-        sender.layer.shadowOpacity = 0.6
+        let vkModal = PhotoViewController() as UIViewController
+        vkModal.modalPresentationStyle = .FullScreen
+        vkModal.modalTransitionStyle = .CoverVertical
+        self.presentViewController(vkModal, animated:true, completion:nil)
     }
     
     func authorizationButtonDown(sender:UIButton) {
-        sender.layer.shadowOpacity = 0.0
     }
     
     func authorizationButtonTappedOutside(sender:UIButton) {
         self.authorizationButtonTappedInside(sender)
-    }
-    
-//    функция возвращает каркас для отрисовки стикерной тени для элемента
-    func stickerShadow(forView view:UIView) -> CGPath {
-        var shadowPath = CGPathCreateMutable()
-        
-        CGPathMoveToPoint(shadowPath, nil, 0, 0)
-        CGPathAddLineToPoint(shadowPath, nil, CGRectGetWidth(view.frame), CGPathGetCurrentPoint(shadowPath).y)
-        CGPathAddLineToPoint(shadowPath, nil, CGPathGetCurrentPoint(shadowPath).x, CGRectGetHeight(view.frame))
-        CGPathAddLineToPoint(shadowPath, nil, view.frame.size.width / 2, CGRectGetHeight(view.frame) - 8)
-        CGPathAddLineToPoint(shadowPath, nil, 0, CGRectGetHeight(view.frame))
-        CGPathCloseSubpath(shadowPath)
-        
-        view.layer.shadowColor = UIColor.blackColor().CGColor
-        view.layer.shadowOpacity = 0.6
-        view.layer.shadowRadius = 5
-        view.layer.shadowOffset = CGSizeMake(0, 7)
-        
-        return shadowPath
     }
 }
