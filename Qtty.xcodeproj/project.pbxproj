@@ -11,11 +11,11 @@
 		D508A9E219652CEE0086620F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D508A9E119652CEE0086620F /* Images.xcassets */; };
 		D508A9EE19652CEE0086620F /* QttyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D508A9ED19652CEE0086620F /* QttyTests.swift */; };
 		D508A9F819652D600086620F /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D508A9F719652D600086620F /* MainScreen.swift */; };
+		D55144A61966CDDE002D27DB /* NAGShadowedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55144A51966CDDE002D27DB /* NAGShadowedView.swift */; };
 		D55F9403196558D300B9A15A /* authorizationButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D55F9402196558D300B9A15A /* authorizationButton@2x.png */; };
-		D562761A19669E7B009B8A17 /* UIStickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562761919669E7B009B8A17 /* UIStickerView.swift */; };
 		D57F84721965376200893354 /* backgroundImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D57F84711965376100893354 /* backgroundImage@2x.png */; };
 		D57F8474196549D700893354 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D57F8473196549D700893354 /* logo@2x.png */; };
-		D5AB2D281965A9E900268FAB /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AB2D271965A9E900268FAB /* PhotoViewController.swift */; };
+		D5AB2D281965A9E900268FAB /* VKAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AB2D271965A9E900268FAB /* VKAuthorizationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,11 +37,11 @@
 		D508A9EC19652CEE0086620F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D508A9ED19652CEE0086620F /* QttyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QttyTests.swift; sourceTree = "<group>"; };
 		D508A9F719652D600086620F /* MainScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		D55144A51966CDDE002D27DB /* NAGShadowedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGShadowedView.swift; sourceTree = "<group>"; };
 		D55F9402196558D300B9A15A /* authorizationButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "authorizationButton@2x.png"; sourceTree = "<group>"; };
-		D562761919669E7B009B8A17 /* UIStickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStickerView.swift; sourceTree = "<group>"; };
 		D57F84711965376100893354 /* backgroundImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroundImage@2x.png"; sourceTree = "<group>"; };
 		D57F8473196549D700893354 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
-		D5AB2D271965A9E900268FAB /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		D5AB2D271965A9E900268FAB /* VKAuthorizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKAuthorizationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 				D508A9E119652CEE0086620F /* Images.xcassets */,
 				D508A9DD19652CED0086620F /* Supporting Files */,
 				D508A9F719652D600086620F /* MainScreen.swift */,
-				D5AB2D271965A9E900268FAB /* PhotoViewController.swift */,
+				D5AB2D271965A9E900268FAB /* VKAuthorizationViewController.swift */,
 			);
 			path = Qtty;
 			sourceTree = "<group>";
@@ -122,7 +122,7 @@
 		D562761819669E0E009B8A17 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D562761919669E7B009B8A17 /* UIStickerView.swift */,
+				D55144A51966CDDE002D27DB /* NAGShadowedView.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -237,10 +237,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D562761A19669E7B009B8A17 /* UIStickerView.swift in Sources */,
+				D55144A61966CDDE002D27DB /* NAGShadowedView.swift in Sources */,
 				D508A9F819652D600086620F /* MainScreen.swift in Sources */,
 				D508A9E019652CED0086620F /* AppDelegate.swift in Sources */,
-				D5AB2D281965A9E900268FAB /* PhotoViewController.swift in Sources */,
+				D5AB2D281965A9E900268FAB /* VKAuthorizationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +346,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = Qtty/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -357,6 +358,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = Qtty/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

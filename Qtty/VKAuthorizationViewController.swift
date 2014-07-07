@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoViewController: UIViewController {
+class VKAuthorizationViewController: UIViewController {
     
     override func loadView() {
 //        размеры экрана
@@ -34,14 +34,25 @@ class PhotoViewController: UIViewController {
         topView.addSubview(authorizationLabel)
         
 //        добавляем кнопку "Закрыть"
-        let closeButton = UIButton(frame: CGRectMake(5, 5, 40, 40))
+        let closeButton = UIButton()
         closeButton.backgroundColor = UIColor(red:0.439, green:0.286, blue:0.549, alpha:1)
         closeButton.setTitleColor(UIColor(red:0.749, green:0.749, blue:0.749, alpha:1), forState:.Normal)
         closeButton.setTitle("X", forState:.Normal)
+        closeButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Bottom
         closeButton.titleLabel.font = UIFont(name:"Helvetica Light", size:25)
         closeButton.addTarget(self, action:Selector("closeButtonTapped:"), forControlEvents:.TouchUpInside)
         
-        topView.addSubview(closeButton)
+//        создаем тень для кнопки закрыть, добавляем её на основную вьюху
+        let compoundView = UIView(frame: CGRectMake(0, -2, 40, 40))
+        let shadow = NAGShadowedView(frame: CGRectMake(8, -4, CGRectGetWidth(compoundView.frame), CGRectGetHeight(compoundView.frame)))
+        
+        closeButton.frame = CGRectMake(CGRectGetMinX(shadow.frame), CGRectGetMinY(shadow.frame) + 6, 40, 40)
+        closeButton.layer.cornerRadius = 6.0
+        
+        compoundView.addSubview(shadow)
+        compoundView.addSubview(closeButton)
+        
+        topView.addSubview(compoundView)
         
 //        добавляем веб вью для авторизации в ВК
         let webView = UIWebView(frame:CGRectMake(0, topView.frame.size.height, screenWidth, screenHeight - topView.frame.size.height))

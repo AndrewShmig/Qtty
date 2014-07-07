@@ -8,30 +8,6 @@
 
 import UIKit
 
-
-extension UIView {
-    //    функция возвращает каркас для отрисовки стикерной тени для элемента
-    func activateStickerShadow() {
-        var shadowPath = CGPathCreateMutable()
-        
-        CGPathMoveToPoint(shadowPath, nil, 0, 0)
-        CGPathAddLineToPoint(shadowPath, nil, CGRectGetWidth(self.frame), CGPathGetCurrentPoint(shadowPath).y)
-        CGPathAddLineToPoint(shadowPath, nil, CGPathGetCurrentPoint(shadowPath).x, CGRectGetHeight(self.frame))
-        CGPathAddLineToPoint(shadowPath, nil, CGRectGetWidth(self.frame) / 2, 0)
-        CGPathAddLineToPoint(shadowPath, nil, 0, CGRectGetHeight(self.frame))
-        CGPathCloseSubpath(shadowPath)
-        
-        self.layer.shadowColor = UIColor.blackColor().CGColor
-        self.layer.shadowOpacity = 0.6
-        self.layer.shadowRadius = 2.0
-        self.layer.shadowOffset = CGSizeMake(0, 5)
-        self.layer.masksToBounds = false
-        
-        self.layer.cornerRadius = 5.0
-    }
-}
-
-
 class MainScreen: UIViewController {
     
     override func loadView()  {
@@ -73,19 +49,26 @@ class MainScreen: UIViewController {
         let authorizationButtonWidth = UIScreen.mainScreen().bounds.size.width - authorizationButtonX * 2
         let authorizationButtonY = UIScreen.mainScreen().bounds.size.height - 10.0 - authorizationButtonHeight
         
-        authorizationButton.frame = CGRectMake(authorizationButtonX, authorizationButtonY, authorizationButtonWidth, authorizationButtonHeight)
         authorizationButton.backgroundColor = UIColor(red:0.439, green:0.286, blue:0.549, alpha:1)
         authorizationButton.setTitleColor(UIColor(red:0.749, green:0.749, blue:0.749, alpha:1), forState:.Normal)
         authorizationButton.setTitle("Авторизоваться", forState:.Normal)
         authorizationButton.titleLabel.font = UIFont(name:"Helvetica Light", size:25)
         
-        authorizationButton.activateStickerShadow()
-        
         authorizationButton.addTarget(self, action:Selector("authorizationButtonTappedInside:"), forControlEvents:.TouchUpInside)
         authorizationButton.addTarget(self, action:Selector("authorizationButtonTappedOutside:"), forControlEvents:.TouchUpOutside)
         authorizationButton.addTarget(self, action:Selector("authorizationButtonDown:"), forControlEvents:.TouchDown)
         
-        view.addSubview(authorizationButton)
+//        объединяем тень и кнопку в одну вьюху
+        let compoundView = UIView(frame: CGRectMake(authorizationButtonX, authorizationButtonY, authorizationButtonWidth, authorizationButtonHeight))
+        let shadow = NAGShadowedView(frame: CGRectMake(0, 0, CGRectGetWidth(compoundView.frame), CGRectGetHeight(compoundView.frame)))
+        
+        authorizationButton.frame = shadow.frame
+        authorizationButton.layer.cornerRadius = 6.0
+        
+        compoundView.addSubview(shadow)
+        compoundView.addSubview(authorizationButton)
+        
+        view.addSubview(compoundView)
         
 //        устанавливаем текущую сконфигурированную вьюху
         self.view = view
@@ -100,7 +83,7 @@ class MainScreen: UIViewController {
     }
     
     func authorizationButtonTappedInside(sender:UIButton) {
-        let vkModal = PhotoViewController() as UIViewController
+        let vkModal = VKAuthorizationViewController() as UIViewController
         vkModal.modalPresentationStyle = .FullScreen
         vkModal.modalTransitionStyle = .CoverVertical
         self.presentViewController(vkModal, animated:true, completion:nil)
