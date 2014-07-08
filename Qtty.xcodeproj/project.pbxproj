@@ -37,6 +37,30 @@
 		D508A9EC19652CEE0086620F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D508A9ED19652CEE0086620F /* QttyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QttyTests.swift; sourceTree = "<group>"; };
 		D508A9F719652D600086620F /* MainScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		D52998BE196BCD0A00EE83F6 /* ObjC-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjC-Bridging-Header.h"; sourceTree = "<group>"; };
+		D529990D196BD28600EE83F6 /* NSData+toBase64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+toBase64.h"; sourceTree = "<group>"; };
+		D529990E196BD28600EE83F6 /* NSData+toBase64.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+toBase64.m"; sourceTree = "<group>"; };
+		D529990F196BD28600EE83F6 /* NSString+Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Utilities.h"; sourceTree = "<group>"; };
+		D5299910196BD28600EE83F6 /* NSString+Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utilities.m"; sourceTree = "<group>"; };
+		D5299913196BD28600EE83F6 /* VKConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKConnector.h; sourceTree = "<group>"; };
+		D5299914196BD28600EE83F6 /* VKConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKConnector.m; sourceTree = "<group>"; };
+		D5299915196BD28600EE83F6 /* VkontakteSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VkontakteSDK.h; sourceTree = "<group>"; };
+		D5299916196BD28600EE83F6 /* VkontakteSDK_Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VkontakteSDK_Logger.h; sourceTree = "<group>"; };
+		D5299919196BD28600EE83F6 /* VKMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKMethods.h; sourceTree = "<group>"; };
+		D529991A196BD28600EE83F6 /* VKRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKRequest.h; sourceTree = "<group>"; };
+		D529991B196BD28600EE83F6 /* VKRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKRequest.m; sourceTree = "<group>"; };
+		D529991C196BD28600EE83F6 /* VKRequestManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKRequestManager.h; sourceTree = "<group>"; };
+		D529991D196BD28600EE83F6 /* VKRequestManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKRequestManager.m; sourceTree = "<group>"; };
+		D529991F196BD28600EE83F6 /* VKStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKStorage.h; sourceTree = "<group>"; };
+		D5299920196BD28600EE83F6 /* VKStorage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKStorage.m; sourceTree = "<group>"; };
+		D5299923196BD28600EE83F6 /* VKAccessToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKAccessToken.h; sourceTree = "<group>"; };
+		D5299924196BD28600EE83F6 /* VKAccessToken.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKAccessToken.m; sourceTree = "<group>"; };
+		D5299926196BD28600EE83F6 /* VKCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKCache.h; sourceTree = "<group>"; };
+		D5299927196BD28600EE83F6 /* VKCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKCache.m; sourceTree = "<group>"; };
+		D5299929196BD28600EE83F6 /* VKStorageItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKStorageItem.h; sourceTree = "<group>"; };
+		D529992A196BD28600EE83F6 /* VKStorageItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKStorageItem.m; sourceTree = "<group>"; };
+		D529992C196BD28600EE83F6 /* VKUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKUser.h; sourceTree = "<group>"; };
+		D529992D196BD28600EE83F6 /* VKUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKUser.m; sourceTree = "<group>"; };
 		D55144A51966CDDE002D27DB /* NAGShadowedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGShadowedView.swift; sourceTree = "<group>"; };
 		D55F9402196558D300B9A15A /* authorizationButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "authorizationButton@2x.png"; sourceTree = "<group>"; };
 		D57F84711965376100893354 /* backgroundImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroundImage@2x.png"; sourceTree = "<group>"; };
@@ -90,6 +114,7 @@
 				D508A9DD19652CED0086620F /* Supporting Files */,
 				D508A9F719652D600086620F /* MainScreen.swift */,
 				D5AB2D271965A9E900268FAB /* VKAuthorizationViewController.swift */,
+				D52998BE196BCD0A00EE83F6 /* ObjC-Bridging-Header.h */,
 			);
 			path = Qtty;
 			sourceTree = "<group>";
@@ -119,9 +144,120 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D52998C3196BD28600EE83F6 /* Vkontakte-iOS-SDK-LV */ = {
+			isa = PBXGroup;
+			children = (
+				D529990C196BD28600EE83F6 /* Helpers */,
+				D5299912196BD28600EE83F6 /* VKConnector */,
+				D5299915196BD28600EE83F6 /* VkontakteSDK.h */,
+				D5299916196BD28600EE83F6 /* VkontakteSDK_Logger.h */,
+				D5299917196BD28600EE83F6 /* VKRequestManager */,
+				D529991E196BD28600EE83F6 /* VKStorage */,
+				D529992B196BD28600EE83F6 /* VKUser */,
+			);
+			path = "Vkontakte-iOS-SDK-LV";
+			sourceTree = "<group>";
+		};
+		D529990C196BD28600EE83F6 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D529990D196BD28600EE83F6 /* NSData+toBase64.h */,
+				D529990E196BD28600EE83F6 /* NSData+toBase64.m */,
+				D529990F196BD28600EE83F6 /* NSString+Utilities.h */,
+				D5299910196BD28600EE83F6 /* NSString+Utilities.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D5299912196BD28600EE83F6 /* VKConnector */ = {
+			isa = PBXGroup;
+			children = (
+				D5299913196BD28600EE83F6 /* VKConnector.h */,
+				D5299914196BD28600EE83F6 /* VKConnector.m */,
+			);
+			path = VKConnector;
+			sourceTree = "<group>";
+		};
+		D5299917196BD28600EE83F6 /* VKRequestManager */ = {
+			isa = PBXGroup;
+			children = (
+				D5299918196BD28600EE83F6 /* VKRequest */,
+				D529991C196BD28600EE83F6 /* VKRequestManager.h */,
+				D529991D196BD28600EE83F6 /* VKRequestManager.m */,
+			);
+			path = VKRequestManager;
+			sourceTree = "<group>";
+		};
+		D5299918196BD28600EE83F6 /* VKRequest */ = {
+			isa = PBXGroup;
+			children = (
+				D5299919196BD28600EE83F6 /* VKMethods.h */,
+				D529991A196BD28600EE83F6 /* VKRequest.h */,
+				D529991B196BD28600EE83F6 /* VKRequest.m */,
+			);
+			path = VKRequest;
+			sourceTree = "<group>";
+		};
+		D529991E196BD28600EE83F6 /* VKStorage */ = {
+			isa = PBXGroup;
+			children = (
+				D529991F196BD28600EE83F6 /* VKStorage.h */,
+				D5299920196BD28600EE83F6 /* VKStorage.m */,
+				D5299921196BD28600EE83F6 /* VKStorageItem */,
+			);
+			path = VKStorage;
+			sourceTree = "<group>";
+		};
+		D5299921196BD28600EE83F6 /* VKStorageItem */ = {
+			isa = PBXGroup;
+			children = (
+				D5299922196BD28600EE83F6 /* VKAccessToken */,
+				D5299925196BD28600EE83F6 /* VKCache */,
+				D5299928196BD28600EE83F6 /* VKStorageItem */,
+			);
+			path = VKStorageItem;
+			sourceTree = "<group>";
+		};
+		D5299922196BD28600EE83F6 /* VKAccessToken */ = {
+			isa = PBXGroup;
+			children = (
+				D5299923196BD28600EE83F6 /* VKAccessToken.h */,
+				D5299924196BD28600EE83F6 /* VKAccessToken.m */,
+			);
+			path = VKAccessToken;
+			sourceTree = "<group>";
+		};
+		D5299925196BD28600EE83F6 /* VKCache */ = {
+			isa = PBXGroup;
+			children = (
+				D5299926196BD28600EE83F6 /* VKCache.h */,
+				D5299927196BD28600EE83F6 /* VKCache.m */,
+			);
+			path = VKCache;
+			sourceTree = "<group>";
+		};
+		D5299928196BD28600EE83F6 /* VKStorageItem */ = {
+			isa = PBXGroup;
+			children = (
+				D5299929196BD28600EE83F6 /* VKStorageItem.h */,
+				D529992A196BD28600EE83F6 /* VKStorageItem.m */,
+			);
+			path = VKStorageItem;
+			sourceTree = "<group>";
+		};
+		D529992B196BD28600EE83F6 /* VKUser */ = {
+			isa = PBXGroup;
+			children = (
+				D529992C196BD28600EE83F6 /* VKUser.h */,
+				D529992D196BD28600EE83F6 /* VKUser.m */,
+			);
+			path = VKUser;
+			sourceTree = "<group>";
+		};
 		D562761819669E0E009B8A17 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D52998C3196BD28600EE83F6 /* Vkontakte-iOS-SDK-LV */,
 				D55144A51966CDDE002D27DB /* NAGShadowedView.swift */,
 			);
 			name = Classes;
@@ -349,6 +485,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/Qtty/ObjC-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -361,6 +498,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/Qtty/ObjC-Bridging-Header.h";
 			};
 			name = Release;
 		};

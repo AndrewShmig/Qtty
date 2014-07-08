@@ -40,7 +40,7 @@ class VKAuthorizationViewController: UIViewController {
         closeButton.setTitle("X", forState:.Normal)
         closeButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Bottom
         closeButton.titleLabel.font = UIFont(name:"Helvetica Light", size:25)
-        closeButton.addTarget(self, action:Selector("closeButtonTapped:"), forControlEvents:.TouchUpInside)
+        closeButton.addTarget(self, action:"closeButtonTapped:", forControlEvents:.TouchUpInside)
         
 //        создаем тень для кнопки закрыть, добавляем её на основную вьюху
         let compoundView = UIView(frame: CGRectMake(0, -2, 40, 40))

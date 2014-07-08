@@ -54,9 +54,7 @@ class MainScreen: UIViewController {
         authorizationButton.setTitle("Авторизоваться", forState:.Normal)
         authorizationButton.titleLabel.font = UIFont(name:"Helvetica Light", size:25)
         
-        authorizationButton.addTarget(self, action:Selector("authorizationButtonTappedInside:"), forControlEvents:.TouchUpInside)
-        authorizationButton.addTarget(self, action:Selector("authorizationButtonTappedOutside:"), forControlEvents:.TouchUpOutside)
-        authorizationButton.addTarget(self, action:Selector("authorizationButtonDown:"), forControlEvents:.TouchDown)
+        authorizationButton.addTarget(self, action:"authorizationButtonTappedInside:", forControlEvents:.TouchUpInside)
         
 //        объединяем тень и кнопку в одну вьюху
         let compoundView = UIView(frame: CGRectMake(authorizationButtonX, authorizationButtonY, authorizationButtonWidth, authorizationButtonHeight))
@@ -84,15 +82,10 @@ class MainScreen: UIViewController {
     
     func authorizationButtonTappedInside(sender:UIButton) {
         let vkModal = VKAuthorizationViewController() as UIViewController
+        
         vkModal.modalPresentationStyle = .FullScreen
         vkModal.modalTransitionStyle = .CoverVertical
+        
         self.presentViewController(vkModal, animated:true, completion:nil)
-    }
-    
-    func authorizationButtonDown(sender:UIButton) {
-    }
-    
-    func authorizationButtonTappedOutside(sender:UIButton) {
-        self.authorizationButtonTappedInside(sender)
     }
 }
