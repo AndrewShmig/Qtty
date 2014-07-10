@@ -8,7 +8,9 @@
 
 import UIKit
 
-class VKAuthorizationViewController: UIViewController {
+class VKAuthorizationViewController: UIViewController, VKMediatorDelegate {
+    
+    var webView: UIWebView?
     
     override func loadView() {
 //        размеры экрана
@@ -55,11 +57,17 @@ class VKAuthorizationViewController: UIViewController {
         topView.addSubview(compoundView)
         
 //        добавляем веб вью для авторизации в ВК
-        let webView = UIWebView(frame:CGRectMake(0, topView.frame.size.height, screenWidth, screenHeight - topView.frame.size.height))
+        self.webView = UIWebView(frame:CGRectMake(0, topView.frame.size.height, screenWidth, screenHeight - topView.frame.size.height))
         
 //        добавляем вьюхи на основную
         self.view.addSubview(topView)
-        self.view.addSubview(webView)
+        self.view.addSubview(self.webView)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        VKConnector.sharedInstance().startWithAppID("4455228", permissons: ["photo", "wall", "friends"], webView: self.webView, delegate: self)
     }
     
     override func shouldAutorotate() -> Bool {
@@ -72,5 +80,18 @@ class VKAuthorizationViewController: UIViewController {
     
     func closeButtonTapped(sender:UIButton) {
         self.dismissViewControllerAnimated(true, completion:nil)
+    }
+    
+//    --- VKMediatorDelegate ---
+    func VKMediator(connector: VKConnector!, accessTokenRenewalSucceeded accessToken: VKAccessToken!) {
+        println("access token \(accessToken)")
+    }
+    
+    func VKMediator(connector: VKConnector!, accessTokenRenewalFailed accessToken: VKAccessToken!) {
+        println("access token failed \(accessToken)")
+    }
+    
+    func VKMediator(connector: VKConnector!, willHideWebView webView: UIWebView!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
