@@ -58,24 +58,14 @@ class VKAuthorizationViewController: UIViewController, VKMediatorDelegate {
         
 //        добавляем веб вью для авторизации в ВК
         self.webView = UIWebView(frame:CGRectMake(0, topView.frame.size.height, screenWidth, screenHeight - topView.frame.size.height))
+        self.webView!.hidden = true
         
 //        добавляем вьюхи на основную
         self.view.addSubview(topView)
         self.view.addSubview(self.webView)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
+//        начинаем уже осуществлять запрос к серверу ВК для загрузки страницы авторизации
         VKConnector.sharedInstance().startWithAppID("4455228", permissons: ["photo", "wall", "friends"], webView: self.webView, delegate: self)
-    }
-    
-    override func shouldAutorotate() -> Bool {
-        return true;
-    }
-    
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.All.toRaw())
     }
     
     func closeButtonTapped(sender:UIButton) {
@@ -83,15 +73,24 @@ class VKAuthorizationViewController: UIViewController, VKMediatorDelegate {
     }
     
 //    --- VKMediatorDelegate ---
+    func VKMediator(connector: VKConnector!, connectionError error: NSError!) {
+    }
+    
     func VKMediator(connector: VKConnector!, accessTokenRenewalSucceeded accessToken: VKAccessToken!) {
-        println("access token \(accessToken)")
     }
     
     func VKMediator(connector: VKConnector!, accessTokenRenewalFailed accessToken: VKAccessToken!) {
-        println("access token failed \(accessToken)")
+    }
+    
+    func VKMediator(connector: VKConnector!, willShowWebView webView: UIWebView!) {
+        self.webView!.hidden = false
     }
     
     func VKMediator(connector: VKConnector!, willHideWebView webView: UIWebView!) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        weak var webViewWeak = self.webView
+        
+        self.dismissViewControllerAnimated(true, completion: {
+            webViewWeak!.hidden = true
+            })
     }
 }

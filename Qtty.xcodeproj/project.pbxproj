@@ -117,6 +117,7 @@
 		D508A9DC19652CED0086620F /* Qtty */ = {
 			isa = PBXGroup;
 			children = (
+				D5FC66F5196F05A700E99C54 /* Qtty-Bridging-Header.h */,
 				D5FC67B0196F08A800E99C54 /* Controllers */,
 				D562761819669E0E009B8A17 /* Classes */,
 				D57F84701965374700893354 /* Resources */,
@@ -157,7 +158,6 @@
 			children = (
 				D5FC67A9196F083100E99C54 /* VkontakteSDK */,
 				D55144A51966CDDE002D27DB /* NAGShadowedView.swift */,
-				D5FC66F5196F05A700E99C54 /* Qtty-Bridging-Header.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";

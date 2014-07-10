@@ -71,14 +71,6 @@ class MainScreen: UIViewController {
 //        устанавливаем текущую сконфигурированную вьюху
         self.view = view
     }
-
-    override func shouldAutorotate() -> Bool {
-        return true;
-    }
-    
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.PortraitUpsideDown.toRaw() | UIInterfaceOrientationMask.Portrait.toRaw())
-    }
     
     func authorizationButtonTappedInside(sender:UIButton) {
         let vkModal = VKAuthorizationViewController() as UIViewController
