@@ -34,7 +34,7 @@
 #import "VKAccessToken.h"
 #import "VKStorage.h"
 #import "NSString+Utilities.h"
-#import "VKMediatorDelegate.h"
+#import "VKConnectorDelegate.h"
 #import "VKStorageItem.h"
 
 
@@ -68,7 +68,7 @@
 - (void)startWithAppID:(NSString *)appID
             permissons:(NSArray *)permissions
                webView:(UIWebView *)webView
-              delegate:(id<VKMediatorDelegate>)delegate
+              delegate:(id<VKConnectorDelegate>)delegate
 {
     VK_LOG(@"%@", @{
             @"webView"     : webView,

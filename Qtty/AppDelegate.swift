@@ -16,9 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window!.rootViewController = MainScreen(nibName: nil, bundle: nil)
         
-
+        if VKUser.currentUser() {
+            self.window!.rootViewController = PhotoScreen(nibName: nil, bundle: nil)
+        } else {
+            self.window!.rootViewController = MainScreen(nibName: nil, bundle: nil)
+        }
         
         self.window!.backgroundColor = UIColor.whiteColor()
         self.window!.makeKeyAndVisible()

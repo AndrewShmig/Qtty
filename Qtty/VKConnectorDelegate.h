@@ -14,7 +14,7 @@
 /** Protocol incapsulates methods that are triggered during user authorization
  process or access token status changes.
  */
-@protocol VKMediatorDelegate <NSObject>
+@protocol VKConnectorDelegate <NSObject>
 
 @optional
 /**

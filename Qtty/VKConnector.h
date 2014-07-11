@@ -26,7 +26,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@protocol VKMediatorDelegate;
+@protocol VKConnectorDelegate;
 @class VKAccessToken;
 
 
@@ -57,7 +57,7 @@ Example:
 */
 /** Delegate
  */
-@property (nonatomic, weak, readonly) id<VKMediatorDelegate> delegate;
+@property (nonatomic, weak, readonly) id<VKConnectorDelegate> delegate;
 
 /** Application's unique identifier
 */
@@ -87,7 +87,7 @@ Example:
 - (void)startWithAppID:(NSString *)appID
             permissons:(NSArray *)permissions
                webView:(UIWebView *)webView
-              delegate:(id<VKMediatorDelegate>)delegate;
+              delegate:(id<VKConnectorDelegate>)delegate;
 
 /**
 @name Cookies

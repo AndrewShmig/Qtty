@@ -10,7 +10,7 @@
 #import "VKConnector.h"
 #import "VKMethods.h"
 #import "VKRequest.h"
-#import "VKMediatorDelegate.h"
+#import "VKConnectorDelegate.h"
 #import "VKAccessToken.h"
 #import "VKStorage.h"
 #import "VKStorageItem.h"

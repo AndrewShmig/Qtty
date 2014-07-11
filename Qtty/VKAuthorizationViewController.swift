@@ -8,7 +8,9 @@
 
 import UIKit
 
-class VKAuthorizationViewController: UIViewController, VKMediatorDelegate {
+class VKAuthorizationViewController: UIViewController, VKConnectorDelegate, UIAlertViewDelegate {
+    
+    let kActivityIndicatorTag = 1
     
     var webView: UIWebView?
     
@@ -58,7 +60,7 @@ class VKAuthorizationViewController: UIViewController, VKMediatorDelegate {
         
 //        добавляем веб вью для авторизации в ВК
         self.webView = UIWebView(frame:CGRectMake(0, topView.frame.size.height, screenWidth, screenHeight - topView.frame.size.height))
-        self.webView!.hidden = true
+        self.webView!.autoresizingMask = UIViewAutoresizing.FlexibleWidth
         
 //        добавляем вьюхи на основную
         self.view.addSubview(topView)
@@ -73,24 +75,36 @@ class VKAuthorizationViewController: UIViewController, VKMediatorDelegate {
     }
     
 //    --- VKMediatorDelegate ---
-    func VKMediator(connector: VKConnector!, connectionError error: NSError!) {
-    }
-    
-    func VKMediator(connector: VKConnector!, accessTokenRenewalSucceeded accessToken: VKAccessToken!) {
-    }
-    
-    func VKMediator(connector: VKConnector!, accessTokenRenewalFailed accessToken: VKAccessToken!) {
-    }
-    
     func VKMediator(connector: VKConnector!, willShowWebView webView: UIWebView!) {
-        self.webView!.hidden = false
     }
     
     func VKMediator(connector: VKConnector!, willHideWebView webView: UIWebView!) {
-        weak var webViewWeak = self.webView
+    }
+    
+    func VKMediator(connector: VKConnector!, webViewDidStartLoad webView: UIWebView!) {
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        activityIndicator.tag = kActivityIndicatorTag
+        activityIndicator.center = CGPointMake(CGRectGetWidth(webView.frame) / 2, CGRectGetHeight(webView.frame) / 2)
+        activityIndicator.startAnimating()
         
-        self.dismissViewControllerAnimated(true, completion: {
-            webViewWeak!.hidden = true
-            })
+        webView.addSubview(activityIndicator)
+    }
+    
+    func VKMediator(connector: VKConnector!, webViewDidFinishLoad webView: UIWebView!) {
+        webView.viewWithTag(kActivityIndicatorTag).removeFromSuperview()
+    }
+    
+    func VKMediator(connector: VKConnector!, connectionError error: NSError!) {
+        let connectionErroAlert = UIAlertView(title: "Ошибка соединения", message: "Проверьте подключение к интернету. ВКонтакте молчит.", delegate: self, cancelButtonTitle: "OK")
+        connectionErroAlert.show()
+    }
+    
+    func VKMediator(connector: VKConnector!, accessTokenRenewalSucceeded accessToken: VKAccessToken!) {
+        self.presentViewController(PhotoScreen(), animated: false, completion: {})
+    }
+    
+//    --- UIAlertViewDelegate ---
+    func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int) {
+        self.dismissViewControllerAnimated(true, completion:nil)
     }
 }
