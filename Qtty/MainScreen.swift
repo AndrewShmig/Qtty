@@ -80,4 +80,8 @@ class MainScreen: UIViewController {
         
         self.presentViewController(vkModal, animated:true, completion:nil)
     }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.Portrait.toRaw() | UIInterfaceOrientationMask.PortraitUpsideDown.toRaw())
+    }
 }

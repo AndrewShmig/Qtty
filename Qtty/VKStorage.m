@@ -264,7 +264,7 @@
         VKAccessToken *token = [(VKStorageItem *) obj accessToken];
 
         [newStorage setObject:[NSKeyedArchiver archivedDataWithRootObject:token]
-                       forKey:[NSString stringWithFormat:@"%d", token.userID]];
+                       forKey:[NSString stringWithFormat:@"%lu", (unsigned long)token.userID]];
     }];
 
     [myDefaults setObject:newStorage

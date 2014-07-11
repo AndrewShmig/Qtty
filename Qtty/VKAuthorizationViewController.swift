@@ -103,8 +103,17 @@ class VKAuthorizationViewController: UIViewController, VKConnectorDelegate, UIAl
         self.presentViewController(PhotoScreen(), animated: false, completion: {})
     }
     
+    func VKMediator(connector: VKConnector!, accessTokenRenewalFailed accessToken: VKAccessToken!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 //    --- UIAlertViewDelegate ---
     func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int) {
         self.dismissViewControllerAnimated(true, completion:nil)
+    }
+    
+//    -- Device orientation
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.All.toRaw())
     }
 }

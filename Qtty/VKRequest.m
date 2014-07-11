@@ -263,8 +263,8 @@
             [finalBody appendData:[_boundaryFooter dataUsingEncoding:NSUTF8StringEncoding]];
 
             //       установим необходимые поля хэдеров
-            self.HTTPHeaderFields[@"Content-Length"] = [NSString stringWithFormat:@"%d",
-                                                                                  self.HTTPBody.length];
+            self.HTTPHeaderFields[@"Content-Length"] = [NSString stringWithFormat:@"%lu",
+                                                                                  (unsigned long)self.HTTPBody.length];
             self.HTTPHeaderFields[@"Content-Type"] = [NSString stringWithFormat:@"multipart/form-data; boundary=\"%@\"",
                                                                                 _boundary];
         }
