@@ -114,6 +114,6 @@ class VKAuthorizationViewController: UIViewController, VKConnectorDelegate, UIAl
     
 //    -- Device orientation
     override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.All.toRaw())
+        return Int(UIInterfaceOrientationMask.Portrait.toRaw() | UIInterfaceOrientationMask.PortraitUpsideDown.toRaw())
     }
 }

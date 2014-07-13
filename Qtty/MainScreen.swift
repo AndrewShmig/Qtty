@@ -33,12 +33,12 @@ class MainScreen: UIViewController {
         view.addSubview(glassView)
         
 //        добавляем надпись с названием приложения
-        let screenMidX = CGRectGetMidX(UIScreen.mainScreen().bounds) / 2
-        let screenMidY = CGRectGetMidY(UIScreen.mainScreen().bounds) / 2
+        let screenMidX = CGRectGetWidth(UIScreen.mainScreen().bounds) / 2
+        let screenMidY = CGRectGetHeight(UIScreen.mainScreen().bounds) / 2
         
         let appNameImage = UIImage(named:"logo")
         let appNameImageView = UIImageView(image:appNameImage)
-        appNameImageView.frame = CGRectMake(screenMidX, screenMidY, appNameImage.size.width, appNameImage.size.height)
+        appNameImageView.center = CGPointMake(screenMidX, screenMidY)
         
         view.addSubview(appNameImageView)
         
