@@ -26,7 +26,7 @@
  @param connector VKConnector instance that sends notifications
  @param webView UIWebView that displays authorization page
  */
-- (void)VKMediator:(VKConnector *)connector
+- (void)connector:(VKConnector *)connector
     willShowWebView:(UIWebView *)webView;
 
 /** Method is called when UIWebView should be hidden, this method is called after
@@ -36,7 +36,7 @@
  @param connector VKConnector instance that sends notifications
  @param webView UIWebView that displays authorization page and needs to be hidden
  */
-- (void)VKMediator:(VKConnector *)connector
+- (void)connector:(VKConnector *)connector
     willHideWebView:(UIWebView *)webView;
 
 /**
@@ -47,7 +47,7 @@
  @param connector VKConnector instance that sends notifications
  @param webView UIWebView that displays authorization page
  */
-- (void)VKMediator:(VKConnector *)connector
+- (void)connector:(VKConnector *)connector
 webViewDidStartLoad:(UIWebView *)webView;
 
 /** Method is called when UIWebView finishes loading a frame
@@ -55,7 +55,7 @@ webViewDidStartLoad:(UIWebView *)webView;
  @param connector VKConnector instance that sends notifications
  @param webView UIWebView that displays authorization page
  */
-- (void) VKMediator:(VKConnector *)connector
+- (void) connector:(VKConnector *)connector
 webViewDidFinishLoad:(UIWebView *)webView;
 
 /**
@@ -66,7 +66,7 @@ webViewDidFinishLoad:(UIWebView *)webView;
  @param connector VKConnector instance that sends notifications
  @param accessToken updated access token
  */
-- (void)        VKMediator:(VKConnector *)connector
+- (void)        connector:(VKConnector *)connector
 accessTokenRenewalSucceeded:(VKAccessToken *)accessToken;
 
 /** Method is called when access token failed to be updated. The main reason
@@ -75,7 +75,7 @@ accessTokenRenewalSucceeded:(VKAccessToken *)accessToken;
  @param connector VKConnector instance that sends notifications
  @param accessToken access token (equals to nil)
  */
-- (void)     VKMediator:(VKConnector *)connector
+- (void)     connector:(VKConnector *)connector
 accessTokenRenewalFailed:(VKAccessToken *)accessToken;
 
 /**
@@ -86,7 +86,7 @@ accessTokenRenewalFailed:(VKAccessToken *)accessToken;
  @param connector VKConnector instance that sends notifications
  @param error error description
  */
-- (void)VKMediator:(VKConnector *)connector
+- (void)connector:(VKConnector *)connector
     connectionError:(NSError *)error;
 
 /** Method is called if VK application was deleted.
@@ -94,7 +94,7 @@ accessTokenRenewalFailed:(VKAccessToken *)accessToken;
  @param connector VKConnector instance that sends notifications
  @param error error description
  */
-- (void)  VKMediator:(VKConnector *)connector
+- (void)  connector:(VKConnector *)connector
 applicationWasDeleted:(NSError *)error;
 
 @end

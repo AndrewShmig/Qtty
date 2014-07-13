@@ -75,13 +75,13 @@ class VKAuthorizationViewController: UIViewController, VKConnectorDelegate, UIAl
     }
     
 //    --- VKMediatorDelegate ---
-    func VKMediator(connector: VKConnector!, willShowWebView webView: UIWebView!) {
+    func connector(VKConnector!, willShowWebView webView: UIWebView!) {
     }
     
-    func VKMediator(connector: VKConnector!, willHideWebView webView: UIWebView!) {
+    func connector(VKConnector!, willHideWebView webView: UIWebView!) {
     }
     
-    func VKMediator(connector: VKConnector!, webViewDidStartLoad webView: UIWebView!) {
+    func connector(VKConnector!, webViewDidStartLoad webView: UIWebView!) {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         activityIndicator.tag = kActivityIndicatorTag
         activityIndicator.center = CGPointMake(CGRectGetWidth(webView.frame) / 2, CGRectGetHeight(webView.frame) / 2)
@@ -90,20 +90,20 @@ class VKAuthorizationViewController: UIViewController, VKConnectorDelegate, UIAl
         webView.addSubview(activityIndicator)
     }
     
-    func VKMediator(connector: VKConnector!, webViewDidFinishLoad webView: UIWebView!) {
+    func connector(VKConnector!, webViewDidFinishLoad webView: UIWebView!) {
         webView.viewWithTag(kActivityIndicatorTag).removeFromSuperview()
     }
     
-    func VKMediator(connector: VKConnector!, connectionError error: NSError!) {
+    func connector(VKConnector!, connectionError error: NSError!) {
         let connectionErroAlert = UIAlertView(title: "Ошибка соединения", message: "Проверьте подключение к интернету. ВКонтакте молчит.", delegate: self, cancelButtonTitle: "OK")
         connectionErroAlert.show()
     }
     
-    func VKMediator(connector: VKConnector!, accessTokenRenewalSucceeded accessToken: VKAccessToken!) {
+    func connector(VKConnector!, accessTokenRenewalSucceeded accessToken: VKAccessToken!) {
         self.presentViewController(PhotoScreen(), animated: false, completion: {})
     }
     
-    func VKMediator(connector: VKConnector!, accessTokenRenewalFailed accessToken: VKAccessToken!) {
+    func connector(VKConnector!, accessTokenRenewalFailed accessToken: VKAccessToken!) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
