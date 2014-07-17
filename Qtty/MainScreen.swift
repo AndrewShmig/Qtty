@@ -87,7 +87,7 @@ class MainScreen: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         cameraView.sourceType = UIImagePickerControllerSourceType.Camera
         cameraView.showsCameraControls = false
         cameraView.delegate = self
-        cameraView.cameraOverlayView = NAGPhotoOverlayView(frame: UIScreen.mainScreen().bounds)
+        cameraView.cameraOverlayView = NAGFirstPhotoOverlayView(frame: UIScreen.mainScreen().bounds)
         
         self.presentViewController(cameraView, animated: false, completion: nil)
       } else {

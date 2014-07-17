@@ -16,7 +16,7 @@
 		D57F84721965376200893354 /* backgroundImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D57F84711965376100893354 /* backgroundImage@2x.png */; };
 		D57F8474196549D700893354 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D57F8473196549D700893354 /* logo@2x.png */; };
 		D5AB2D281965A9E900268FAB /* VKAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AB2D271965A9E900268FAB /* VKAuthorizationViewController.swift */; };
-		D5BAC3391977C49D0068A75D /* NAGPhotoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BAC3381977C49D0068A75D /* NAGPhotoOverlayView.swift */; };
+		D5BAC3391977C49D0068A75D /* NAGFirstPhotoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */; };
 		D5FC67AE196F086C00E99C54 /* NSData+toBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FC67AB196F086C00E99C54 /* NSData+toBase64.m */; };
 		D5FC67AF196F086C00E99C54 /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FC67AD196F086C00E99C54 /* NSString+Utilities.m */; };
 		D5FC67B3196F090500E99C54 /* VKConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FC67B2196F090500E99C54 /* VKConnector.m */; };
@@ -53,7 +53,7 @@
 		D57F84711965376100893354 /* backgroundImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroundImage@2x.png"; sourceTree = "<group>"; };
 		D57F8473196549D700893354 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		D5AB2D271965A9E900268FAB /* VKAuthorizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKAuthorizationViewController.swift; sourceTree = "<group>"; };
-		D5BAC3381977C49D0068A75D /* NAGPhotoOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGPhotoOverlayView.swift; sourceTree = "<group>"; };
+		D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGFirstPhotoOverlayView.swift; sourceTree = "<group>"; };
 		D5FC66F5196F05A700E99C54 /* Qtty-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Qtty-Bridging-Header.h"; sourceTree = "<group>"; };
 		D5FC67AA196F086C00E99C54 /* NSData+toBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+toBase64.h"; sourceTree = "<group>"; };
 		D5FC67AB196F086C00E99C54 /* NSData+toBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+toBase64.m"; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 			children = (
 				D5FC67A9196F083100E99C54 /* VkontakteSDK */,
 				D55144A51966CDDE002D27DB /* NAGShadowedView.swift */,
-				D5BAC3381977C49D0068A75D /* NAGPhotoOverlayView.swift */,
+				D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -317,7 +317,7 @@
 				D5FC67B7196F092E00E99C54 /* VKRequest.m in Sources */,
 				D55144A61966CDDE002D27DB /* NAGShadowedView.swift in Sources */,
 				D5FC67C0196F099100E99C54 /* VKStorageItem.m in Sources */,
-				D5BAC3391977C49D0068A75D /* NAGPhotoOverlayView.swift in Sources */,
+				D5BAC3391977C49D0068A75D /* NAGFirstPhotoOverlayView.swift in Sources */,
 				D5FC67C7196F0A2900E99C54 /* VKUser.m in Sources */,
 				D5FC67CA196F0A4400E99C54 /* VKRequestManager.m in Sources */,
 				D5FC67AE196F086C00E99C54 /* NSData+toBase64.m in Sources */,
