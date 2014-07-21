@@ -12,6 +12,7 @@
 		D508A9EE19652CEE0086620F /* QttyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D508A9ED19652CEE0086620F /* QttyTests.swift */; };
 		D508A9F819652D600086620F /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D508A9F719652D600086620F /* MainScreen.swift */; };
 		D55144A61966CDDE002D27DB /* NAGShadowedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55144A51966CDDE002D27DB /* NAGShadowedView.swift */; };
+		D5560E94197D49B300B5265F /* NAGImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5560E93197D49B300B5265F /* NAGImagePickerController.swift */; };
 		D55F9403196558D300B9A15A /* authorizationButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D55F9402196558D300B9A15A /* authorizationButton@2x.png */; };
 		D57F84721965376200893354 /* backgroundImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D57F84711965376100893354 /* backgroundImage@2x.png */; };
 		D57F8474196549D700893354 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D57F8473196549D700893354 /* logo@2x.png */; };
@@ -49,6 +50,7 @@
 		D508A9ED19652CEE0086620F /* QttyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QttyTests.swift; sourceTree = "<group>"; };
 		D508A9F719652D600086620F /* MainScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		D55144A51966CDDE002D27DB /* NAGShadowedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGShadowedView.swift; sourceTree = "<group>"; };
+		D5560E93197D49B300B5265F /* NAGImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGImagePickerController.swift; sourceTree = "<group>"; };
 		D55F9402196558D300B9A15A /* authorizationButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "authorizationButton@2x.png"; sourceTree = "<group>"; };
 		D57F84711965376100893354 /* backgroundImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroundImage@2x.png"; sourceTree = "<group>"; };
 		D57F8473196549D700893354 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				D5FC67A9196F083100E99C54 /* VkontakteSDK */,
 				D55144A51966CDDE002D27DB /* NAGShadowedView.swift */,
 				D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */,
+				D5560E93197D49B300B5265F /* NAGImagePickerController.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				TargetAttributes = {
 					D508A9D919652CED0086620F = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 2N548588CC;
 					};
 					D508A9E619652CEE0086620F = {
 						CreatedOnToolsVersion = 6.0;
@@ -318,6 +322,7 @@
 				D55144A61966CDDE002D27DB /* NAGShadowedView.swift in Sources */,
 				D5FC67C0196F099100E99C54 /* VKStorageItem.m in Sources */,
 				D5BAC3391977C49D0068A75D /* NAGFirstPhotoOverlayView.swift in Sources */,
+				D5560E94197D49B300B5265F /* NAGImagePickerController.swift in Sources */,
 				D5FC67C7196F0A2900E99C54 /* VKUser.m in Sources */,
 				D5FC67CA196F0A4400E99C54 /* VKRequestManager.m in Sources */,
 				D5FC67AE196F086C00E99C54 /* NSData+toBase64.m in Sources */,

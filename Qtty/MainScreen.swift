@@ -83,7 +83,7 @@ class MainScreen: UIViewController, UIImagePickerControllerDelegate, UINavigatio
       if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
         println("We have camera...")
         
-        let cameraView = UIImagePickerController()
+        let cameraView = NAGImagePickerController()
         cameraView.sourceType = UIImagePickerControllerSourceType.Camera
         cameraView.showsCameraControls = false
         cameraView.delegate = self

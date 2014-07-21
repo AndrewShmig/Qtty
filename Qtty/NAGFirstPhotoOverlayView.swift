@@ -18,13 +18,13 @@ class NAGFirstPhotoOverlayView: UIView {
     case LowerRightCorner
   }
   
-  let buttonSize = CGSize(width: 50, height: 50) // размеры левой и правой кнопок
+  let buttonSize = CGSize(width: 60, height: 60) // размеры левой и правой кнопок
   let kLeftButtonTag = 1
   let kRightButtonTag = 2
-  let kButtonOffset: CGFloat = 10
+  let kButtonOffset: CGFloat = 5
   
-  var leftButton: UIButton?
-  var rightButton: UIButton?
+  var leftButton: UIButton!
+  var rightButton: UIButton!
   
   init(frame: CGRect) {
     super.init(frame: frame)
@@ -36,9 +36,13 @@ class NAGFirstPhotoOverlayView: UIView {
     addSubview(leftButton)
     addSubview(rightButton)
     
+    // подстройка под первоначальное положение девайса до начала получения уведомлений
+    layout(UIDevice.currentDevice().orientation)
+    
     // подписываемся на получение уведомлений об изменении ориентации девайса
     UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidChangeOrientation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "imagePickerControllerViewDidAppear:", name: kNAGImagePickerControllerViewDidAppear, object: nil)
   }
   
   // обрабатываем повороты девайса
@@ -47,9 +51,9 @@ class NAGFirstPhotoOverlayView: UIView {
     
     switch currentOrientation {
     case .LandscapeLeft, .LandscapeRight, .Portrait, .PortraitUpsideDown:
-      self.layout(currentOrientation)
+      layout(currentOrientation)
     default:
-      print() // нельзя же пропустить default часть :(
+      break
     }
   }
   
@@ -57,25 +61,25 @@ class NAGFirstPhotoOverlayView: UIView {
   func layout(orientation: UIDeviceOrientation) {
     switch orientation {
     case .Portrait:
-      leftButton!.frame = position(leftButton, atCorner: .UpperLeftCorner)
-      rightButton!.frame = position(rightButton, atCorner: .UpperRightCorner)
+      leftButton.frame = position(leftButton, atCorner: .UpperLeftCorner)
+      rightButton.frame = position(rightButton, atCorner: .UpperRightCorner)
     case .PortraitUpsideDown:
-      leftButton!.frame = position(leftButton, atCorner: .LowerRightCorner)
-      rightButton!.frame = position(rightButton, atCorner: .LowerLeftCorner)
+      leftButton.frame = position(leftButton, atCorner: .LowerRightCorner)
+      rightButton.frame = position(rightButton, atCorner: .LowerLeftCorner)
     case .LandscapeRight:
-      leftButton!.frame = position(leftButton, atCorner: .LowerLeftCorner)
-      rightButton!.frame = position(rightButton, atCorner: .UpperLeftCorner)
+      leftButton.frame = position(leftButton, atCorner: .LowerLeftCorner)
+      rightButton.frame = position(rightButton, atCorner: .UpperLeftCorner)
     case .LandscapeLeft:
-      leftButton!.frame = position(leftButton, atCorner: .UpperRightCorner)
-      rightButton!.frame = position(rightButton, atCorner: .LowerRightCorner)
+      leftButton.frame = position(leftButton, atCorner: .UpperRightCorner)
+      rightButton.frame = position(rightButton, atCorner: .LowerRightCorner)
     default:
-      print()
+      break
     }
   }
   
   // функция возвращает frame элемента, который был передан с измененным положением на
   // один из четырех возможных: верхний левый угол, верхний правый, нижний левый, нижний правый
-  func position(element:UIButton!, atCorner: NAGCorner) -> CGRect {
+  func position(element:UIButton, atCorner: NAGCorner) -> CGRect {
     var newFrame = element.frame
     let screenBounds = UIScreen.mainScreen().bounds
     let screenHeight = CGRectGetHeight(screenBounds)
@@ -115,9 +119,15 @@ class NAGFirstPhotoOverlayView: UIView {
     return button
   }
   
+  // метод вызывается в момент вызова метода viewDidAppear: UIImagePickerController'а
+  func imagePickerControllerViewDidAppear(sender: NSNotification) {
+    println("viewDidAppear in firstPhotoOverlayView...")
+  }
+  
   // отписываемся от уведомлений и отключаем генерирование нотификаций о поворотах
   deinit {
     UIDevice.currentDevice().endGeneratingDeviceOrientationNotifications()
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
+
 }
