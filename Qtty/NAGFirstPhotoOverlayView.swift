@@ -18,7 +18,9 @@ class NAGFirstPhotoOverlayView: UIView {
     case LowerRightCorner
   }
   
-  let buttonSize = CGSize(width: 60, height: 60) // размеры левой и правой кнопок
+  let screenHeight = { CGRectGetHeight(UIScreen.mainScreen().bounds) }()
+  let screenWidth = { CGRectGetWidth(UIScreen.mainScreen().bounds) }()
+  let kButtonSize = CGSize(width: 60, height: 60)
   let kLeftButtonTag = 1
   let kRightButtonTag = 2
   let kButtonOffset: CGFloat = 5
@@ -29,19 +31,7 @@ class NAGFirstPhotoOverlayView: UIView {
   init(frame: CGRect) {
     super.init(frame: frame)
     
-    // создаем кнопки создания сетки и фиксации фотографии
-    leftButton = createLeftButton()
-    rightButton = createRightButton()
-    
-    addSubview(leftButton)
-    addSubview(rightButton)
-    
-    // подстройка под первоначальное положение девайса до начала получения уведомлений
-    layout(UIDevice.currentDevice().orientation)
-    
-    // подписываемся на получение уведомлений об изменении ориентации девайса
-    UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidChangeOrientation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    // подписываем на нотификации о вызове метода viewDidAppear: нашего ImagePickerController
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "imagePickerControllerViewDidAppear:", name: kNAGImagePickerControllerViewDidAppear, object: nil)
   }
   
@@ -51,7 +41,8 @@ class NAGFirstPhotoOverlayView: UIView {
     
     switch currentOrientation {
     case .LandscapeLeft, .LandscapeRight, .Portrait, .PortraitUpsideDown:
-      layout(currentOrientation)
+      self.layout(currentOrientation)
+      
     default:
       break
     }
@@ -101,27 +92,71 @@ class NAGFirstPhotoOverlayView: UIView {
     return newFrame
   }
   
+  // создаем кнопки сетки и фиксации фотографии
+  func createControlElements() {
+    leftButton = createLeftButton()
+    rightButton = createRightButton()
+    
+    addSubview(leftButton)
+    addSubview(rightButton)
+  }
+  
   // создаем левую кнопку
   func createLeftButton() -> UIButton {
-    let button = UIButton(frame: CGRect(origin: CGPointZero, size: buttonSize))
-    button.tag = kLeftButtonTag
+    let button = UIButton()
+    button.frame.size = kButtonSize
     button.backgroundColor = UIColor.blueColor()
+    
+    switch UIDevice.currentDevice().orientation {
+    case .Portrait:
+      button.frame = CGRect(origin: CGPoint(x: -CGRectGetWidth(button.frame), y: kButtonOffset), size: kButtonSize)
+    case .PortraitUpsideDown:
+      button.frame = CGRect(origin: CGPoint(x: screenWidth, y: screenHeight - CGRectGetHeight(button.frame) - kButtonOffset), size: kButtonSize)
+    case .LandscapeRight:
+      button.frame = CGRect(origin: CGPoint(x: kButtonOffset, y: screenHeight), size: kButtonSize)
+    case .LandscapeLeft:
+      button.frame = CGRect(origin: CGPoint(x: screenWidth - kButtonOffset - CGRectGetWidth(button.frame), y: -CGRectGetHeight(button.frame)), size: kButtonSize)
+    default:
+      break
+    }
     
     return button
   }
   
   // создаем правую кнопку
   func createRightButton() -> UIButton {
-    let button = UIButton(frame: CGRect(origin: CGPointZero, size: buttonSize))
-    button.tag = kRightButtonTag
+    let button = UIButton()
+    button.frame.size = kButtonSize
     button.backgroundColor = UIColor.redColor()
+    
+    switch UIDevice.currentDevice().orientation {
+    case .Portrait:
+      button.frame = CGRect(origin: CGPoint(x: screenWidth, y: kButtonOffset), size: kButtonSize)
+    case .PortraitUpsideDown:
+      button.frame = CGRect(origin: CGPoint(x: -CGRectGetWidth(button.frame), y: screenHeight - CGRectGetHeight(button.frame) - kButtonOffset), size: kButtonSize)
+    case .LandscapeRight:
+      button.frame = CGRect(origin: CGPoint(x: kButtonOffset, y: -CGRectGetHeight(button.frame)), size: kButtonSize)
+    case .LandscapeLeft:
+      button.frame = CGRect(origin: CGPoint(x: screenWidth - kButtonOffset - CGRectGetWidth(button.frame), y: screenHeight), size: kButtonSize)
+    default:
+      break
+    }
     
     return button
   }
   
   // метод вызывается в момент вызова метода viewDidAppear: UIImagePickerController'а
   func imagePickerControllerViewDidAppear(sender: NSNotification) {
-    println("viewDidAppear in firstPhotoOverlayView...")
+    createControlElements()
+    
+    // единожды анимируем появление управляющих элементов - кнопок
+    UIView.animateWithDuration(1.0, animations: {
+      self.layout(UIDevice.currentDevice().orientation)
+      })
+    
+    // подписываемся на получение уведомлений об изменении ориентации девайса
+    UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidChangeOrientation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
   }
   
   // отписываемся от уведомлений и отключаем генерирование нотификаций о поворотах
@@ -129,5 +164,5 @@ class NAGFirstPhotoOverlayView: UIView {
     UIDevice.currentDevice().endGeneratingDeviceOrientationNotifications()
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
-
+  
 }
