@@ -23,6 +23,7 @@ class NAGFirstPhotoOverlayView: UIView {
   let kButtonSize = CGSize(width: 60, height: 60)
   let kLeftButtonTag = 1
   let kRightButtonTag = 2
+  let kGridViewTag = 3
   let kButtonOffset: CGFloat = 5
   
   var leftButton: UIButton!
@@ -31,8 +32,15 @@ class NAGFirstPhotoOverlayView: UIView {
   init(frame: CGRect) {
     super.init(frame: frame)
     
+    // создаем вьюху с сеткой и вставляем за управляющие элементы
+    let grid = NAGGridView(frame: self.frame)
+    grid.hidden = true
+    grid.tag = kGridViewTag
+    
+    self.insertSubview(grid, belowSubview: self)
+    
     // подписываем на нотификации о вызове метода viewDidAppear: нашего ImagePickerController
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "imagePickerControllerViewDidAppear:", name: kNAGImagePickerControllerViewDidAppear, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "imagePickerControllerViewDidAppear:", name: kNAGImagePickerControllerViewDidAppearNotification, object: nil)
   }
   
   // обрабатываем повороты девайса
@@ -60,11 +68,9 @@ class NAGFirstPhotoOverlayView: UIView {
     case .LandscapeRight:
       leftButton.frame = position(leftButton, atCorner: .LowerLeftCorner)
       rightButton.frame = position(rightButton, atCorner: .UpperLeftCorner)
-    case .LandscapeLeft:
+    case .LandscapeLeft, .FaceDown, .FaceUp, .Unknown:
       leftButton.frame = position(leftButton, atCorner: .UpperRightCorner)
       rightButton.frame = position(rightButton, atCorner: .LowerRightCorner)
-    default:
-      break
     }
   }
   
@@ -92,7 +98,7 @@ class NAGFirstPhotoOverlayView: UIView {
     return newFrame
   }
   
-  // создаем кнопки сетки и фиксации фотографии
+  // создаем кнопки сетки и фиксации фотографии + саму сетку на доп слое
   func createControlElements() {
     leftButton = createLeftButton()
     rightButton = createRightButton()
@@ -106,6 +112,7 @@ class NAGFirstPhotoOverlayView: UIView {
     let button = UIButton()
     button.frame.size = kButtonSize
     button.backgroundColor = UIColor.blueColor()
+    button.addTarget(self, action: "showGrid:", forControlEvents: .TouchUpInside)
     
     switch UIDevice.currentDevice().orientation {
     case .Portrait:
@@ -114,10 +121,8 @@ class NAGFirstPhotoOverlayView: UIView {
       button.frame = CGRect(origin: CGPoint(x: screenWidth, y: screenHeight - CGRectGetHeight(button.frame) - kButtonOffset), size: kButtonSize)
     case .LandscapeRight:
       button.frame = CGRect(origin: CGPoint(x: kButtonOffset, y: screenHeight), size: kButtonSize)
-    case .LandscapeLeft:
-      button.frame = CGRect(origin: CGPoint(x: screenWidth - kButtonOffset - CGRectGetWidth(button.frame), y: -CGRectGetHeight(button.frame)), size: kButtonSize)
     default:
-      break
+      button.frame = CGRect(origin: CGPoint(x: screenWidth - kButtonOffset - CGRectGetWidth(button.frame), y: -CGRectGetHeight(button.frame)), size: kButtonSize)
     }
     
     return button
@@ -128,6 +133,7 @@ class NAGFirstPhotoOverlayView: UIView {
     let button = UIButton()
     button.frame.size = kButtonSize
     button.backgroundColor = UIColor.redColor()
+    button.addTarget(self, action: "flipCameras:", forControlEvents: .TouchUpInside)
     
     switch UIDevice.currentDevice().orientation {
     case .Portrait:
@@ -136,13 +142,22 @@ class NAGFirstPhotoOverlayView: UIView {
       button.frame = CGRect(origin: CGPoint(x: -CGRectGetWidth(button.frame), y: screenHeight - CGRectGetHeight(button.frame) - kButtonOffset), size: kButtonSize)
     case .LandscapeRight:
       button.frame = CGRect(origin: CGPoint(x: kButtonOffset, y: -CGRectGetHeight(button.frame)), size: kButtonSize)
-    case .LandscapeLeft:
-      button.frame = CGRect(origin: CGPoint(x: screenWidth - kButtonOffset - CGRectGetWidth(button.frame), y: screenHeight), size: kButtonSize)
     default:
-      break
+      button.frame = CGRect(origin: CGPoint(x: screenWidth - kButtonOffset - CGRectGetWidth(button.frame), y: screenHeight), size: kButtonSize)
     }
     
     return button
+  }
+  
+  // после нажатия на кнопку "Показать сетку" отображаем сетку
+  func showGrid(sender:UIButton) {
+    self.superview.viewWithTag(self.kGridViewTag).hidden = !self.superview.viewWithTag(self.kGridViewTag).hidden
+  }
+  
+  // переключаемся на фронтальную камеру
+  func flipCameras(sender:UIButton) {
+    // чтобы не выносить cameraView в глобальную область видимости воспользуемся нотификациями
+    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerFlipCameraNotification, object: nil)
   }
   
   // метод вызывается в момент вызова метода viewDidAppear: UIImagePickerController'а

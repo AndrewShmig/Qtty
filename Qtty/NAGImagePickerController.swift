@@ -9,10 +9,11 @@
 import UIKit
 
 
-let kNAGImagePickerControllerViewDidLoad = "NAGImagePickerControllerViewDidLoad"
-let kNAGImagePickerControllerViewWillAppear = "NAGImagePickerControllerViewWillAppear"
-let kNAGImagePickerControllerViewDidAppear = "NAGImagePickerControllerViewDidAppear"
-let kNAGImagePickerControllerViewDidDisappear = "NAGImagePickerControllerViewDidDisappear"
+let kNAGImagePickerControllerViewDidLoadNotification = "NAGImagePickerControllerViewDidLoadNotification"
+let kNAGImagePickerControllerViewWillAppearNotification = "NAGImagePickerControllerViewWillAppearNotification"
+let kNAGImagePickerControllerViewDidAppearNotification = "NAGImagePickerControllerViewDidAppearNotification"
+let kNAGImagePickerControllerViewDidDisappearNotification = "NAGImagePickerControllerViewDidDisappearNotification"
+let kNAGImagePickerControllerFlipCameraNotification = "NAGImagePickerControllerFlipCameraNotification"
 
 
 class NAGImagePickerController: UIImagePickerController {
@@ -20,25 +21,33 @@ class NAGImagePickerController: UIImagePickerController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerViewDidLoad, object: self)
+    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerViewDidLoadNotification, object: self)
   }
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     
-    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerViewWillAppear, object: self)
+    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerViewWillAppearNotification, object: self)
   }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     
-    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerViewDidAppear, object: self)
+    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerViewDidAppearNotification, object: self)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "flipCameras", name: kNAGImagePickerControllerFlipCameraNotification, object: nil)
   }
   
   override func viewDidDisappear(animated: Bool) {
     super.viewDidDisappear(animated)
     
-    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerViewDidDisappear, object: self)
+    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerViewDidDisappearNotification, object: self)
   }
   
+  func flipCameras() {
+    cameraDevice = (cameraDevice == .Rear ? .Front : .Rear)
+  }
+  
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
 }

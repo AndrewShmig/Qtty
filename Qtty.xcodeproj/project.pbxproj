@@ -16,6 +16,7 @@
 		D55F9403196558D300B9A15A /* authorizationButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D55F9402196558D300B9A15A /* authorizationButton@2x.png */; };
 		D57F84721965376200893354 /* backgroundImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D57F84711965376100893354 /* backgroundImage@2x.png */; };
 		D57F8474196549D700893354 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D57F8473196549D700893354 /* logo@2x.png */; };
+		D59EBBC5197E525000CC16D7 /* NAGGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EBBC4197E525000CC16D7 /* NAGGridView.swift */; };
 		D5AB2D281965A9E900268FAB /* VKAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AB2D271965A9E900268FAB /* VKAuthorizationViewController.swift */; };
 		D5BAC3391977C49D0068A75D /* NAGFirstPhotoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */; };
 		D5FC67AE196F086C00E99C54 /* NSData+toBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FC67AB196F086C00E99C54 /* NSData+toBase64.m */; };
@@ -54,6 +55,7 @@
 		D55F9402196558D300B9A15A /* authorizationButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "authorizationButton@2x.png"; sourceTree = "<group>"; };
 		D57F84711965376100893354 /* backgroundImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroundImage@2x.png"; sourceTree = "<group>"; };
 		D57F8473196549D700893354 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		D59EBBC4197E525000CC16D7 /* NAGGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGGridView.swift; sourceTree = "<group>"; };
 		D5AB2D271965A9E900268FAB /* VKAuthorizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKAuthorizationViewController.swift; sourceTree = "<group>"; };
 		D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGFirstPhotoOverlayView.swift; sourceTree = "<group>"; };
 		D5FC66F5196F05A700E99C54 /* Qtty-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Qtty-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				D55144A51966CDDE002D27DB /* NAGShadowedView.swift */,
 				D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */,
 				D5560E93197D49B300B5265F /* NAGImagePickerController.swift */,
+				D59EBBC4197E525000CC16D7 /* NAGGridView.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				D5560E94197D49B300B5265F /* NAGImagePickerController.swift in Sources */,
 				D5FC67C7196F0A2900E99C54 /* VKUser.m in Sources */,
 				D5FC67CA196F0A4400E99C54 /* VKRequestManager.m in Sources */,
+				D59EBBC5197E525000CC16D7 /* NAGGridView.swift in Sources */,
 				D5FC67AE196F086C00E99C54 /* NSData+toBase64.m in Sources */,
 				D5FC67BA196F095A00E99C54 /* VKAccessToken.m in Sources */,
 				D5FC67AF196F086C00E99C54 /* NSString+Utilities.m in Sources */,
