@@ -43,8 +43,6 @@ class NAGImagePickerController: UIImagePickerController, UIImagePickerController
   override func viewDidDisappear(animated: Bool) {
     super.viewDidDisappear(animated)
     NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerViewDidDisappearNotification, object: self)
-    
-    presentViewController(self, animated: false, completion: {})
   }
   
   // переключаемся между передней и задней камерами

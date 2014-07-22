@@ -162,11 +162,10 @@
 		D562761819669E0E009B8A17 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D59EBBC6197E9DC600CC16D7 /* OverlayViews */,
 				D5FC67A9196F083100E99C54 /* VkontakteSDK */,
 				D55144A51966CDDE002D27DB /* NAGShadowedView.swift */,
-				D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */,
 				D5560E93197D49B300B5265F /* NAGImagePickerController.swift */,
-				D59EBBC4197E525000CC16D7 /* NAGGridView.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -179,6 +178,15 @@
 				D57F84711965376100893354 /* backgroundImage@2x.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		D59EBBC6197E9DC600CC16D7 /* OverlayViews */ = {
+			isa = PBXGroup;
+			children = (
+				D59EBBC4197E525000CC16D7 /* NAGGridView.swift */,
+				D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */,
+			);
+			name = OverlayViews;
 			sourceTree = "<group>";
 		};
 		D5FC67A9196F083100E99C54 /* VkontakteSDK */ = {
