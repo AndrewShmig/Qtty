@@ -24,7 +24,8 @@ class NAGGridView: UIView {
     let context = UIGraphicsGetCurrentContext()
     
     CGContextSetLineWidth(context, 1.0)
-    CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor)
+    CGContextSetShadow(context, CGSizeZero, 1.0)
+    CGContextSetStrokeColorWithColor(context, UIColor(red: 0.803, green: 0.788, blue: 0.788, alpha: 0.5).CGColor)
     
     // чертим горизонтальные линии (портретный режим)
     let horizontalLines = screenHeight / kVisualBlocks
