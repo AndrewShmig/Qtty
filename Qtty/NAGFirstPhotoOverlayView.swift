@@ -11,7 +11,7 @@ import Foundation
 
 class NAGFirstPhotoOverlayView: UIView {
   
-  enum NAGCorner {
+  enum NAGCorner: Int {
     case UpperLeftCorner
     case UpperRightCorner
     case LowerLeftCorner
@@ -111,6 +111,7 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // создаем левую кнопку
+  //TODO: привести кнопку к финальному варианту
   func createLeftButton() -> UIButton {
     let button = UIButton()
     button.frame.size = kButtonSize
@@ -132,6 +133,7 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // создаем правую кнопку
+  //TODO: привести кнопку к финальному варианту
   func createRightButton() -> UIButton {
     let button = UIButton()
     button.frame.size = kButtonSize
