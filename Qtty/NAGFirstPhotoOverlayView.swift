@@ -36,8 +36,11 @@ class NAGFirstPhotoOverlayView: UIView {
     let grid = NAGGridView(frame: self.frame)
     grid.hidden = true
     grid.tag = kGridViewTag
-    
     self.insertSubview(grid, belowSubview: self)
+    
+    // по тапу будем делать фотографию
+    let tapGR = UITapGestureRecognizer(target: self, action: "captureImage")
+    self.addGestureRecognizer(tapGR)
     
     // подписываем на нотификации о вызове метода viewDidAppear: нашего ImagePickerController
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "imagePickerControllerViewDidAppear:", name: kNAGImagePickerControllerViewDidAppearNotification, object: nil)
@@ -158,6 +161,11 @@ class NAGFirstPhotoOverlayView: UIView {
   func flipCameras(sender:UIButton) {
     // чтобы не выносить cameraView в глобальную область видимости воспользуемся нотификациями
     NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerFlipCameraNotification, object: nil)
+  }
+  
+  // делаем фотографию
+  func captureImage() {
+    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerCaptureImageNotification, object: nil)
   }
   
   // метод вызывается в момент вызова метода viewDidAppear: UIImagePickerController'а

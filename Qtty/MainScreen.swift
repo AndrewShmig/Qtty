@@ -87,7 +87,6 @@ class MainScreen: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         cameraView.sourceType = UIImagePickerControllerSourceType.Camera
         cameraView.showsCameraControls = false
         cameraView.allowsEditing = false
-        cameraView.delegate = self
         cameraView.cameraOverlayView = NAGFirstPhotoOverlayView(frame: UIScreen.mainScreen().bounds)
         
         self.presentViewController(cameraView, animated: false, completion: nil)
@@ -112,11 +111,6 @@ class MainScreen: UIViewController, UIImagePickerControllerDelegate, UINavigatio
   
   override func supportedInterfaceOrientations() -> Int {
     return Int(UIInterfaceOrientationMask.Portrait.toRaw() | UIInterfaceOrientationMask.PortraitUpsideDown.toRaw())
-  }
-  
-  //  UIImagePickerControllerDelegate
-  func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
-    println(info)
   }
   
 }
