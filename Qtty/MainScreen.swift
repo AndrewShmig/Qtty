@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class MainScreen: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MainScreen: UIViewController {
   
   let authorizationButton = UIButton()
   
@@ -84,6 +84,7 @@ class MainScreen: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         println("We have camera...")
         
         let cameraView = NAGImagePickerController()
+        cameraView.delegate = cameraView
         cameraView.sourceType = UIImagePickerControllerSourceType.Camera
         cameraView.showsCameraControls = false
         cameraView.allowsEditing = false

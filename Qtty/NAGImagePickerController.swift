@@ -16,7 +16,7 @@ let kNAGImagePickerControllerViewWillDisappearNotification = "NAGImagePickerCont
 let kNAGImagePickerControllerFlipCameraNotification = "NAGImagePickerControllerFlipCameraNotification"
 let kNAGImagePickerControllerCaptureImageNotification = "NAGImagePickerControllerCaptureImageNotification"
 
-class NAGImagePickerController: UIImagePickerController {
+class NAGImagePickerController: UIImagePickerController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -53,10 +53,14 @@ class NAGImagePickerController: UIImagePickerController {
   }
   
   // делаем фотографию
-  //TODO: продумать действия после осуществления фотографии
   func captureImage() {
-    println("captureImage...")
-    self.takePicture()
+    takePicture()
+  }
+  
+  //  сделали фотографию, теперь надо её зафиксировать и отобразить другую оверлейную вьюху
+  //TODO:
+  func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
+    println(info)
   }
   
   deinit {
