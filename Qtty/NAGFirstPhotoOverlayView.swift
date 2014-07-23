@@ -18,8 +18,8 @@ class NAGFirstPhotoOverlayView: UIView {
     case LowerRightCorner
   }
   
-  let screenHeight = { CGRectGetHeight(UIScreen.mainScreen().bounds) }()
-  let screenWidth = { CGRectGetWidth(UIScreen.mainScreen().bounds) }()
+  let screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
+  let screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
   let kButtonSize = CGSize(width: 60, height: 60)
   let kLeftButtonTag = 1
   let kRightButtonTag = 2
@@ -28,7 +28,6 @@ class NAGFirstPhotoOverlayView: UIView {
   
   var leftButton: UIButton!
   var rightButton: UIButton!
-  var prevDeviceOrientation: UIDeviceOrientation = UIDevice.currentDevice().orientation
   
   init(frame: CGRect) {
     super.init(frame: frame)
@@ -63,11 +62,6 @@ class NAGFirstPhotoOverlayView: UIView {
     default:
       break
     }
-    
-    switch currentOrientation {
-    case .FaceDown, .FaceUp, .Unknown: break
-    default: prevDeviceOrientation = currentOrientation
-    }
   }
   
   // в зависимости от текущей ориентации меняем положение левой и правой кнопок
@@ -89,40 +83,11 @@ class NAGFirstPhotoOverlayView: UIView {
       leftButton.frame = position(leftButton, atCorner: .UpperRightCorner)
       rightButton.frame = position(rightButton, atCorner: .LowerRightCorner)
     }
-    
-    var angle: CGFloat
-    switch (prevDeviceOrientation, orientation) {
-    case (.Portrait, .LandscapeLeft),
-    (.LandscapeRight, .Portrait),
-    (.PortraitUpsideDown, .LandscapeRight),
-    (.LandscapeLeft, .PortraitUpsideDown): angle = CGFloat(M_PI) / 2.0
-      
-    case (.Portrait, .LandscapeRight),
-    (.LandscapeLeft, .Portrait),
-    (.LandscapeRight, .PortraitUpsideDown),
-    (.PortraitUpsideDown, .LandscapeLeft): angle = -CGFloat(M_PI) / 2.0
-      
-    case (.Portrait, .PortraitUpsideDown),
-    (.PortraitUpsideDown, .Portrait),
-    (.LandscapeLeft, .LandscapeRight),
-    (.LandscapeRight, .LandscapeLeft): angle = CGFloat(M_PI)
-      
-    default:
-      angle = 0.0
-    }
-
-    let rotate = CGAffineTransformMakeRotation(angle)
-    UIView.animateWithDuration(0.3, animations: {
-      self.leftButton.transform = CGAffineTransformConcat(self.leftButton.transform, rotate)
-      self.rightButton.transform = CGAffineTransformConcat(self.rightButton.transform, rotate)
-      })
   }
   
   // функция возвращает frame элемента, который был передан с измененным положением на
   // один из четырех возможных: верхний левый угол, верхний правый, нижний левый, нижний правый
   func position(element:UIButton, atCorner: NAGCorner) -> CGRect {
-    println(__FUNCTION__)
-    
     var newFrame = element.frame
     let screenBounds = UIScreen.mainScreen().bounds
     let screenHeight = CGRectGetHeight(screenBounds)
@@ -164,7 +129,6 @@ class NAGFirstPhotoOverlayView: UIView {
     rightButton = createRightButton()
     
     layout(UIDevice.currentDevice().orientation)
-    layout(UIDevice.currentDevice().orientation)
     
     addSubview(leftButton)
     addSubview(rightButton)
@@ -172,8 +136,6 @@ class NAGFirstPhotoOverlayView: UIView {
   
   // создаем левую кнопку
   func createLeftButton() -> UIButton {
-    println(__FUNCTION__)
-    
     let button = UIButton()
     button.frame.size = kButtonSize
     button.setImage(UIImage(named: "grid_icon"), forState: UIControlState.Normal)
@@ -185,8 +147,6 @@ class NAGFirstPhotoOverlayView: UIView {
   
   // создаем правую кнопку
   func createRightButton() -> UIButton {
-    println(__FUNCTION__)
-    
     let button = UIButton()
     button.frame.size = kButtonSize
     button.setImage(UIImage(named: "rotate_camera"), forState: UIControlState.Normal)
