@@ -24,7 +24,7 @@ class NAGFirstPhotoOverlayView: UIView {
   let kLeftButtonTag = 1
   let kRightButtonTag = 2
   let kGridViewTag = 3
-  let kButtonOffset: CGFloat = 5
+  let kButtonOffset: CGFloat = 10
   
   var leftButton: UIButton!
   var rightButton: UIButton!
@@ -132,13 +132,25 @@ class NAGFirstPhotoOverlayView: UIView {
     
     switch atCorner {
     case .LowerLeftCorner:
-      newFrame.origin = CGPoint(x: kButtonOffset, y: screenHeight - kButtonOffset - elementHeight)
+      newFrame.origin = CGPoint(x: 0, y: screenHeight - elementHeight)
     case .LowerRightCorner:
-      newFrame.origin = CGPoint(x: screenWidth - kButtonOffset - elementWidth, y: screenHeight - kButtonOffset - elementHeight)
+      newFrame.origin = CGPoint(x: screenWidth - elementWidth, y: screenHeight - elementHeight)
     case .UpperLeftCorner:
-      newFrame.origin = CGPoint(x: kButtonOffset, y: kButtonOffset)
+      newFrame.origin = CGPoint(x: 0, y: 0)
     case .UpperRightCorner:
-      newFrame.origin = CGPoint(x: screenWidth - kButtonOffset - elementWidth, y: kButtonOffset)
+      newFrame.origin = CGPoint(x: screenWidth - elementWidth, y: 0)
+    }
+    
+    let orientation = UIDevice.currentDevice().orientation
+    switch orientation {
+    case .Portrait:
+      newFrame.origin.y += kButtonOffset
+    case .PortraitUpsideDown:
+      newFrame.origin.y -= kButtonOffset
+    case .LandscapeLeft:
+      newFrame.origin.x -= kButtonOffset
+    default:
+      newFrame.origin.x += kButtonOffset
     }
     
     return newFrame
@@ -150,6 +162,9 @@ class NAGFirstPhotoOverlayView: UIView {
     
     leftButton = createLeftButton()
     rightButton = createRightButton()
+    
+    layout(UIDevice.currentDevice().orientation)
+    layout(UIDevice.currentDevice().orientation)
     
     addSubview(leftButton)
     addSubview(rightButton)
@@ -165,17 +180,6 @@ class NAGFirstPhotoOverlayView: UIView {
     button.backgroundColor = UIColor(red: 0.803, green: 0.788, blue: 0.788, alpha: 0.5)
     button.addTarget(self, action: "showGrid:", forControlEvents: .TouchUpInside)
     
-    switch UIDevice.currentDevice().orientation {
-    case .Portrait:
-      button.frame = CGRect(origin: CGPoint(x: -CGRectGetWidth(button.frame), y: kButtonOffset), size: kButtonSize)
-    case .PortraitUpsideDown:
-      button.frame = CGRect(origin: CGPoint(x: screenWidth, y: screenHeight - CGRectGetHeight(button.frame) - kButtonOffset), size: kButtonSize)
-    case .LandscapeRight:
-      button.frame = CGRect(origin: CGPoint(x: kButtonOffset, y: screenHeight), size: kButtonSize)
-    default:
-      button.frame = CGRect(origin: CGPoint(x: screenWidth - kButtonOffset - CGRectGetWidth(button.frame), y: -CGRectGetHeight(button.frame)), size: kButtonSize)
-    }
-    
     return button
   }
   
@@ -188,17 +192,6 @@ class NAGFirstPhotoOverlayView: UIView {
     button.setImage(UIImage(named: "rotate_camera"), forState: UIControlState.Normal)
     button.backgroundColor = UIColor(red: 0.803, green: 0.788, blue: 0.788, alpha: 0.5)
     button.addTarget(self, action: "flipCameras:", forControlEvents: .TouchUpInside)
-    
-    switch UIDevice.currentDevice().orientation {
-    case .Portrait:
-      button.frame = CGRect(origin: CGPoint(x: screenWidth, y: kButtonOffset), size: kButtonSize)
-    case .PortraitUpsideDown:
-      button.frame = CGRect(origin: CGPoint(x: -CGRectGetWidth(button.frame), y: screenHeight - CGRectGetHeight(button.frame) - kButtonOffset), size: kButtonSize)
-    case .LandscapeRight:
-      button.frame = CGRect(origin: CGPoint(x: kButtonOffset, y: -CGRectGetHeight(button.frame)), size: kButtonSize)
-    default:
-      button.frame = CGRect(origin: CGPoint(x: screenWidth - kButtonOffset - CGRectGetWidth(button.frame), y: screenHeight), size: kButtonSize)
-    }
     
     return button
   }
