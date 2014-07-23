@@ -111,11 +111,11 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // создаем левую кнопку
-  //TODO: привести кнопку к финальному варианту
   func createLeftButton() -> UIButton {
     let button = UIButton()
     button.frame.size = kButtonSize
-    button.backgroundColor = UIColor.blueColor()
+    button.setImage(UIImage(named: "grid_icon"), forState: UIControlState.Normal)
+    button.backgroundColor = UIColor(red: 0.803, green: 0.788, blue: 0.788, alpha: 0.5)
     button.addTarget(self, action: "showGrid:", forControlEvents: .TouchUpInside)
     
     switch UIDevice.currentDevice().orientation {
@@ -133,11 +133,11 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // создаем правую кнопку
-  //TODO: привести кнопку к финальному варианту
   func createRightButton() -> UIButton {
     let button = UIButton()
     button.frame.size = kButtonSize
-    button.backgroundColor = UIColor.redColor()
+    button.setImage(UIImage(named: "rotate_camera"), forState: UIControlState.Normal)
+    button.backgroundColor = UIColor(red: 0.803, green: 0.788, blue: 0.788, alpha: 0.5)
     button.addTarget(self, action: "flipCameras:", forControlEvents: .TouchUpInside)
     
     switch UIDevice.currentDevice().orientation {

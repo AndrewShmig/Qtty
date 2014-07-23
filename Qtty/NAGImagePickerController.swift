@@ -56,7 +56,6 @@ class NAGImagePickerController: UIImagePickerController, UIImagePickerController
   }
   
   //  сделали фотографию, теперь надо её зафиксировать и отобразить другую оверлейную вьюху
-  //TODO:
   func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
     println(info)
   }
