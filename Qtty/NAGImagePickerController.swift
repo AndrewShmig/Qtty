@@ -30,7 +30,9 @@ class NAGImagePickerController: UIImagePickerController, UIImagePickerController
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
+    
     NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerViewDidAppearNotification, object: self)
+    
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "flipCameras", name: kNAGImagePickerControllerFlipCameraNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "captureImage", name: kNAGImagePickerControllerCaptureImageNotification, object: nil)
   }

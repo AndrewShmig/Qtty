@@ -28,6 +28,7 @@ class NAGFirstPhotoOverlayView: UIView {
   
   var leftButton: UIButton!
   var rightButton: UIButton!
+  var prevDeviceOrientation: UIDeviceOrientation = UIDevice.currentDevice().orientation
   
   init(frame: CGRect) {
     super.init(frame: frame)
@@ -36,11 +37,15 @@ class NAGFirstPhotoOverlayView: UIView {
     let grid = NAGGridView(frame: self.frame)
     grid.hidden = true
     grid.tag = kGridViewTag
-    self.insertSubview(grid, belowSubview: self)
+    insertSubview(grid, belowSubview: self)
     
     // по тапу будем делать фотографию
     let tapGR = UITapGestureRecognizer(target: self, action: "captureImage")
-    self.addGestureRecognizer(tapGR)
+    addGestureRecognizer(tapGR)
+    
+    // блокируем стандартный контрол зума UIImagePickerController'а
+    let pinchGR = UIPinchGestureRecognizer(target: self, action: nil)
+    addGestureRecognizer(pinchGR)
     
     // подписываем на нотификации о вызове метода viewDidAppear: нашего ImagePickerController
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "imagePickerControllerViewDidAppear:", name: kNAGImagePickerControllerViewDidAppearNotification, object: nil)
@@ -48,19 +53,28 @@ class NAGFirstPhotoOverlayView: UIView {
   
   // обрабатываем повороты девайса
   func deviceDidChangeOrientation(sender: NSNotification!) {
+    println(__FUNCTION__)
+    
     let currentOrientation = UIDevice.currentDevice().orientation
     
     switch currentOrientation {
     case .LandscapeLeft, .LandscapeRight, .Portrait, .PortraitUpsideDown:
       self.layout(currentOrientation)
-      
     default:
       break
+    }
+    
+    switch currentOrientation {
+    case .FaceDown, .FaceUp, .Unknown: break
+    default: prevDeviceOrientation = currentOrientation
     }
   }
   
   // в зависимости от текущей ориентации меняем положение левой и правой кнопок
+  // + поворачиваем кнопки нужным образом, чтобы картинка была повернута корректно
   func layout(orientation: UIDeviceOrientation) {
+    println(__FUNCTION__)
+    
     switch orientation {
     case .Portrait:
       leftButton.frame = position(leftButton, atCorner: .UpperLeftCorner)
@@ -71,15 +85,44 @@ class NAGFirstPhotoOverlayView: UIView {
     case .LandscapeRight:
       leftButton.frame = position(leftButton, atCorner: .LowerLeftCorner)
       rightButton.frame = position(rightButton, atCorner: .UpperLeftCorner)
-    case .LandscapeLeft, .FaceDown, .FaceUp, .Unknown:
+    default: // все другие варианты
       leftButton.frame = position(leftButton, atCorner: .UpperRightCorner)
       rightButton.frame = position(rightButton, atCorner: .LowerRightCorner)
     }
+    
+    var angle: CGFloat
+    switch (prevDeviceOrientation, orientation) {
+    case (.Portrait, .LandscapeLeft),
+    (.LandscapeRight, .Portrait),
+    (.PortraitUpsideDown, .LandscapeRight),
+    (.LandscapeLeft, .PortraitUpsideDown): angle = CGFloat(M_PI) / 2.0
+      
+    case (.Portrait, .LandscapeRight),
+    (.LandscapeLeft, .Portrait),
+    (.LandscapeRight, .PortraitUpsideDown),
+    (.PortraitUpsideDown, .LandscapeLeft): angle = -CGFloat(M_PI) / 2.0
+      
+    case (.Portrait, .PortraitUpsideDown),
+    (.PortraitUpsideDown, .Portrait),
+    (.LandscapeLeft, .LandscapeRight),
+    (.LandscapeRight, .LandscapeLeft): angle = CGFloat(M_PI)
+      
+    default:
+      angle = 0.0
+    }
+
+    let rotate = CGAffineTransformMakeRotation(angle)
+    UIView.animateWithDuration(0.3, animations: {
+      self.leftButton.transform = CGAffineTransformConcat(self.leftButton.transform, rotate)
+      self.rightButton.transform = CGAffineTransformConcat(self.rightButton.transform, rotate)
+      })
   }
   
   // функция возвращает frame элемента, который был передан с измененным положением на
   // один из четырех возможных: верхний левый угол, верхний правый, нижний левый, нижний правый
   func position(element:UIButton, atCorner: NAGCorner) -> CGRect {
+    println(__FUNCTION__)
+    
     var newFrame = element.frame
     let screenBounds = UIScreen.mainScreen().bounds
     let screenHeight = CGRectGetHeight(screenBounds)
@@ -103,6 +146,8 @@ class NAGFirstPhotoOverlayView: UIView {
   
   // создаем кнопки сетки и фиксации фотографии + саму сетку на доп слое
   func createControlElements() {
+    println(__FUNCTION__)
+    
     leftButton = createLeftButton()
     rightButton = createRightButton()
     
@@ -112,6 +157,8 @@ class NAGFirstPhotoOverlayView: UIView {
   
   // создаем левую кнопку
   func createLeftButton() -> UIButton {
+    println(__FUNCTION__)
+    
     let button = UIButton()
     button.frame.size = kButtonSize
     button.setImage(UIImage(named: "grid_icon"), forState: UIControlState.Normal)
@@ -134,6 +181,8 @@ class NAGFirstPhotoOverlayView: UIView {
   
   // создаем правую кнопку
   func createRightButton() -> UIButton {
+    println(__FUNCTION__)
+    
     let button = UIButton()
     button.frame.size = kButtonSize
     button.setImage(UIImage(named: "rotate_camera"), forState: UIControlState.Normal)
@@ -156,22 +205,27 @@ class NAGFirstPhotoOverlayView: UIView {
   
   // после нажатия на кнопку "Показать сетку" отображаем сетку
   func showGrid(sender:UIButton) {
+    println(__FUNCTION__)
     self.superview.viewWithTag(self.kGridViewTag).hidden = !self.superview.viewWithTag(self.kGridViewTag).hidden
   }
   
   // переключаемся на фронтальную камеру
   func flipCameras(sender:UIButton) {
+    println(__FUNCTION__)
     // чтобы не выносить cameraView в глобальную область видимости воспользуемся нотификациями
     NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerFlipCameraNotification, object: nil)
   }
   
   // делаем фотографию
   func captureImage() {
+    println(__FUNCTION__)
     NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerCaptureImageNotification, object: nil)
   }
   
   // метод вызывается в момент вызова метода viewDidAppear: UIImagePickerController'а
   func imagePickerControllerViewDidAppear(sender: NSNotification) {
+    println(__FUNCTION__)
+    
     createControlElements()
     
     // единожды анимируем появление управляющих элементов - кнопок
