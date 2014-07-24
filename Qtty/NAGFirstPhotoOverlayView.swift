@@ -57,7 +57,7 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // обрабатываем повороты девайса
-  private func deviceDidChangeOrientation(sender: NSNotification!) {
+  func deviceDidChangeOrientation(sender: NSNotification!) {
     println(__FUNCTION__)
     
     let currentOrientation = UIDevice.currentDevice().orientation
@@ -74,6 +74,41 @@ class NAGFirstPhotoOverlayView: UIView {
     UIView.animateWithDuration(0.3, animations: {
       self.rotate(from: self.prevDeviceOrientation, to: currentOrientation)
       })
+  }
+  
+  // после нажатия на кнопку "Показать сетку" отображаем сетку
+  func showGrid(sender:UIButton) {
+    println(__FUNCTION__)
+    self.superview.viewWithTag(self.kGridViewTag).hidden = !self.superview.viewWithTag(self.kGridViewTag).hidden
+  }
+  
+  // переключаемся на фронтальную камеру
+  func flipCameras(sender:UIButton) {
+    println(__FUNCTION__)
+    // чтобы не выносить cameraView в глобальную область видимости воспользуемся нотификациями
+    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerFlipCameraNotification, object: nil)
+  }
+  
+  // делаем фотографию
+  func captureImage() {
+    println(__FUNCTION__)
+    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerCaptureImageNotification, object: nil)
+  }
+  
+  // метод вызывается в момент вызова метода viewDidAppear: UIImagePickerController'а
+  func imagePickerControllerViewDidAppear(sender: NSNotification) {
+    println(__FUNCTION__)
+    
+    createControlElements()
+    
+    // единожды анимируем появление управляющих элементов - кнопок
+    UIView.animateWithDuration(1.0, animations: {
+      self.layout(UIDevice.currentDevice().orientation, animation: .AfterAnimation)
+      })
+    
+    // подписываемся на получение уведомлений об изменении ориентации девайса
+    UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidChangeOrientation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
   }
   
   // создаем кнопки сетки и фиксации фотографии + саму сетку на доп слое
@@ -212,41 +247,6 @@ class NAGFirstPhotoOverlayView: UIView {
     }
     
     return newFrame
-  }
-  
-  // после нажатия на кнопку "Показать сетку" отображаем сетку
-  private func showGrid(sender:UIButton) {
-    println(__FUNCTION__)
-    self.superview.viewWithTag(self.kGridViewTag).hidden = !self.superview.viewWithTag(self.kGridViewTag).hidden
-  }
-  
-  // переключаемся на фронтальную камеру
-  private func flipCameras(sender:UIButton) {
-    println(__FUNCTION__)
-    // чтобы не выносить cameraView в глобальную область видимости воспользуемся нотификациями
-    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerFlipCameraNotification, object: nil)
-  }
-  
-  // делаем фотографию
-  private func captureImage() {
-    println(__FUNCTION__)
-    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerCaptureImageNotification, object: nil)
-  }
-  
-  // метод вызывается в момент вызова метода viewDidAppear: UIImagePickerController'а
-  func imagePickerControllerViewDidAppear(sender: NSNotification) {
-    println(__FUNCTION__)
-    
-    createControlElements()
-    
-    // единожды анимируем появление управляющих элементов - кнопок
-    UIView.animateWithDuration(1.0, animations: {
-      self.layout(UIDevice.currentDevice().orientation, animation: .AfterAnimation)
-      })
-    
-    // подписываемся на получение уведомлений об изменении ориентации девайса
-    UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidChangeOrientation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
   }
   
   // отписываемся от уведомлений и отключаем генерирование нотификаций о поворотах
