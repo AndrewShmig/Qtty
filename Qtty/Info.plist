@@ -24,6 +24,10 @@
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
+		<string>gps</string>
+		<string>location-services</string>
+		<string>front-facing-camera</string>
+		<string>still-camera</string>
 		<string>armv7</string>
 	</array>
 	<key>UIStatusBarHidden</key>
