@@ -9,19 +9,19 @@
 import UIKit
 import Foundation
 
+enum NAGCorner: Int {
+  case UpperLeftCorner
+  case UpperRightCorner
+  case LowerLeftCorner
+  case LowerRightCorner
+}
+
+enum NAGAnimatedElementPosition: Int {
+  case BeforeAnimation
+  case AfterAnimation
+}
+
 class NAGFirstPhotoOverlayView: UIView {
-  
-  enum NAGCorner: Int {
-    case UpperLeftCorner
-    case UpperRightCorner
-    case LowerLeftCorner
-    case LowerRightCorner
-  }
-  
-  enum NAGAnimatedElementPosition: Int {
-    case BeforeAnimation
-    case AfterAnimation
-  }
   
   let screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
   let screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
@@ -57,7 +57,7 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // обрабатываем повороты девайса
-  func deviceDidChangeOrientation(sender: NSNotification!) {
+  private func deviceDidChangeOrientation(sender: NSNotification!) {
     println(__FUNCTION__)
     
     let currentOrientation = UIDevice.currentDevice().orientation
@@ -77,7 +77,7 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // создаем кнопки сетки и фиксации фотографии + саму сетку на доп слое
-  func createControlElements() {
+  private func createControlElements() {
     leftButton = createLeftButton()
     rightButton = createRightButton()
     
@@ -90,7 +90,7 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // создаем левую кнопку
-  func createLeftButton() -> UIButton {
+  private func createLeftButton() -> UIButton {
     let button = UIButton()
     button.frame.size = kButtonSize
     button.setImage(UIImage(named: "grid_icon"), forState: UIControlState.Normal)
@@ -101,7 +101,7 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // создаем правую кнопку
-  func createRightButton() -> UIButton {
+  private func createRightButton() -> UIButton {
     let button = UIButton()
     button.frame.size = kButtonSize
     button.setImage(UIImage(named: "rotate_camera"), forState: UIControlState.Normal)
@@ -112,7 +112,7 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // поворачиваем кнопку на нужное кол-во радиан
-  func rotate(#from: UIDeviceOrientation, to: UIDeviceOrientation) {
+  private func rotate(#from: UIDeviceOrientation, to: UIDeviceOrientation) {
     println(__FUNCTION__)
     
     var angle: CGFloat
@@ -139,7 +139,7 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // в зависимости от текущей ориентации и до/после анимации меняем положение левой и правой кнопок
-  func layout(orientation: UIDeviceOrientation, animation: NAGAnimatedElementPosition) {
+  private func layout(orientation: UIDeviceOrientation, animation: NAGAnimatedElementPosition) {
     println(__FUNCTION__)
     
     switch orientation {
@@ -192,7 +192,7 @@ class NAGFirstPhotoOverlayView: UIView {
   
   // функция возвращает frame элемента, который был передан с измененным положением на
   // один из четырех возможных: верхний левый угол, верхний правый, нижний левый, нижний правый
-  func position(element:UIButton, atCorner: NAGCorner) -> CGRect {
+  private func position(element:UIButton, atCorner: NAGCorner) -> CGRect {
     var newFrame = element.frame
     let screenBounds = UIScreen.mainScreen().bounds
     let screenHeight = CGRectGetHeight(screenBounds)
@@ -215,20 +215,20 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // после нажатия на кнопку "Показать сетку" отображаем сетку
-  func showGrid(sender:UIButton) {
+  private func showGrid(sender:UIButton) {
     println(__FUNCTION__)
     self.superview.viewWithTag(self.kGridViewTag).hidden = !self.superview.viewWithTag(self.kGridViewTag).hidden
   }
   
   // переключаемся на фронтальную камеру
-  func flipCameras(sender:UIButton) {
+  private func flipCameras(sender:UIButton) {
     println(__FUNCTION__)
     // чтобы не выносить cameraView в глобальную область видимости воспользуемся нотификациями
     NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerFlipCameraNotification, object: nil)
   }
   
   // делаем фотографию
-  func captureImage() {
+  private func captureImage() {
     println(__FUNCTION__)
     NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerCaptureImageNotification, object: nil)
   }
