@@ -18,7 +18,7 @@ class NAGFirstPhotoOverlayView: UIView {
     case LowerRightCorner
   }
   
-  enum NAGAnimatedElementPosition {
+  enum NAGAnimatedElementPosition: Int {
     case BeforeAnimation
     case AfterAnimation
   }
@@ -147,8 +147,6 @@ class NAGFirstPhotoOverlayView: UIView {
   
   // создаем кнопки сетки и фиксации фотографии + саму сетку на доп слое
   func createControlElements() {
-    println(__FUNCTION__)
-    
     leftButton = createLeftButton()
     rightButton = createRightButton()
     
