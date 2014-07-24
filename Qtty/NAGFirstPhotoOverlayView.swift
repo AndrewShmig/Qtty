@@ -31,8 +31,8 @@ class NAGFirstPhotoOverlayView: UIView {
   let kGridViewTag = 3
   let kButtonOffset: CGFloat = 10
   
-  var leftButton: UIButton!
-  var rightButton: UIButton!
+  var leftButton: UIView!
+  var rightButton: UIView!
   var prevDeviceOrientation: UIDeviceOrientation = .Portrait
   
   init(frame: CGRect) {
@@ -77,13 +77,13 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // после нажатия на кнопку "Показать сетку" отображаем сетку
-  func showGrid(sender:UIButton) {
+  func showGrid(sender:UIView) {
     println(__FUNCTION__)
     self.superview.viewWithTag(self.kGridViewTag).hidden = !self.superview.viewWithTag(self.kGridViewTag).hidden
   }
   
   // переключаемся на фронтальную камеру
-  func flipCameras(sender:UIButton) {
+  func flipCameras(sender:UIView) {
     println(__FUNCTION__)
     // чтобы не выносить cameraView в глобальную область видимости воспользуемся нотификациями
     NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerFlipCameraNotification, object: nil)
@@ -113,8 +113,8 @@ class NAGFirstPhotoOverlayView: UIView {
   
   // создаем кнопки сетки и фиксации фотографии + саму сетку на доп слое
   private func createControlElements() {
-    leftButton = createLeftButton()
-    rightButton = createRightButton()
+    leftButton = createButton(image: UIImage(named: "grid_icon"), action: "showGrid:")
+    rightButton = createButton(image: UIImage(named: "rotate_camera"), action: "flipCameras:")
     
     let orientation = UIDevice.currentDevice().orientation
     layout(orientation, animation: .BeforeAnimation)
@@ -124,24 +124,18 @@ class NAGFirstPhotoOverlayView: UIView {
     addSubview(rightButton)
   }
   
-  // создаем левую кнопку
-  private func createLeftButton() -> UIButton {
-    let button = UIButton()
+  // создает управляющие кнопки
+  private func createButton(#image: UIImage, action:Selector) -> UIView {
+    let button = UIView()
     button.frame.size = kButtonSize
-    button.setImage(UIImage(named: "grid_icon"), forState: UIControlState.Normal)
     button.backgroundColor = UIColor(red: 0.803, green: 0.788, blue: 0.788, alpha: 0.5)
-    button.addTarget(self, action: "showGrid:", forControlEvents: .TouchUpInside)
     
-    return button
-  }
-  
-  // создаем правую кнопку
-  private func createRightButton() -> UIButton {
-    let button = UIButton()
-    button.frame.size = kButtonSize
-    button.setImage(UIImage(named: "rotate_camera"), forState: UIControlState.Normal)
-    button.backgroundColor = UIColor(red: 0.803, green: 0.788, blue: 0.788, alpha: 0.5)
-    button.addTarget(self, action: "flipCameras:", forControlEvents: .TouchUpInside)
+    let imageView = UIImageView(image: image)
+    imageView.center = button.center
+    button.addSubview(imageView)
+    
+    let tapGR = UITapGestureRecognizer(target: self, action: action)
+    button.addGestureRecognizer(tapGR)
     
     return button
   }
@@ -227,7 +221,7 @@ class NAGFirstPhotoOverlayView: UIView {
   
   // функция возвращает frame элемента, который был передан с измененным положением на
   // один из четырех возможных: верхний левый угол, верхний правый, нижний левый, нижний правый
-  private func position(element:UIButton, atCorner: NAGCorner) -> CGRect {
+  private func position(element:UIView, atCorner: NAGCorner) -> CGRect {
     var newFrame = element.frame
     let screenBounds = UIScreen.mainScreen().bounds
     let screenHeight = CGRectGetHeight(screenBounds)
