@@ -143,7 +143,7 @@ class NAGFirstPhotoOverlayView: UIView {
     println(__FUNCTION__)
     
     switch orientation {
-    case .Portrait:
+    case .Portrait, .FaceDown, .FaceUp, .Unknown:
       leftButton.frame = position(leftButton, atCorner: .UpperLeftCorner)
       rightButton.frame = position(rightButton, atCorner: .UpperRightCorner)
     case .PortraitUpsideDown:
@@ -152,13 +152,13 @@ class NAGFirstPhotoOverlayView: UIView {
     case .LandscapeRight:
       leftButton.frame = position(leftButton, atCorner: .LowerLeftCorner)
       rightButton.frame = position(rightButton, atCorner: .UpperLeftCorner)
-    default: // все другие варианты
+    case .LandscapeLeft:
       leftButton.frame = position(leftButton, atCorner: .UpperRightCorner)
       rightButton.frame = position(rightButton, atCorner: .LowerRightCorner)
     }
     
     switch orientation {
-    case .Portrait:
+    case .Portrait, .FaceUp, .FaceDown, .Unknown:
       leftButton.frame.origin.y += kButtonOffset
       rightButton.frame.origin.y += kButtonOffset
     case .PortraitUpsideDown:
@@ -167,14 +167,14 @@ class NAGFirstPhotoOverlayView: UIView {
     case .LandscapeLeft:
       leftButton.frame.origin.x -= kButtonOffset
       rightButton.frame.origin.x -= kButtonOffset
-    default:
+    case .LandscapeRight:
       leftButton.frame.origin.x += kButtonOffset
       rightButton.frame.origin.x += kButtonOffset
     }
     
     if animation == .BeforeAnimation {
       switch orientation {
-      case .Portrait:
+      case .Portrait, .FaceDown, .FaceUp, .Unknown:
         leftButton.frame.origin.x -= CGRectGetWidth(leftButton.frame)
         rightButton.frame.origin.x += CGRectGetWidth(rightButton.frame)
       case .PortraitUpsideDown:
@@ -183,7 +183,7 @@ class NAGFirstPhotoOverlayView: UIView {
       case .LandscapeLeft:
         leftButton.frame.origin.y -= CGRectGetHeight(leftButton.frame)
         rightButton.frame.origin.y += CGRectGetHeight(rightButton.frame)
-      default:
+      case .LandscapeRight:
         leftButton.frame.origin.y += CGRectGetHeight(leftButton.frame)
         rightButton.frame.origin.y -= CGRectGetHeight(rightButton.frame)
       }
