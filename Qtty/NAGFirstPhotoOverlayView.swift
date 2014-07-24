@@ -18,6 +18,11 @@ class NAGFirstPhotoOverlayView: UIView {
     case LowerRightCorner
   }
   
+  enum NAGAnimatedElementPosition {
+    case BeforeAnimation
+    case AfterAnimation
+  }
+  
   let screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
   let screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
   let kButtonSize = CGSize(width: 60, height: 60)
@@ -58,15 +63,14 @@ class NAGFirstPhotoOverlayView: UIView {
     
     switch currentOrientation {
     case .LandscapeLeft, .LandscapeRight, .Portrait, .PortraitUpsideDown:
-      self.layout(currentOrientation)
+      self.layout(currentOrientation, animation: .AfterAnimation)
     default:
       break
     }
   }
   
-  // в зависимости от текущей ориентации меняем положение левой и правой кнопок
-  // + поворачиваем кнопки нужным образом, чтобы картинка была повернута корректно
-  func layout(orientation: UIDeviceOrientation) {
+  // в зависимости от текущей ориентации и до/после анимации меняем положение левой и правой кнопок
+  func layout(orientation: UIDeviceOrientation, animation: NAGAnimatedElementPosition) {
     println(__FUNCTION__)
     
     switch orientation {
@@ -82,6 +86,38 @@ class NAGFirstPhotoOverlayView: UIView {
     default: // все другие варианты
       leftButton.frame = position(leftButton, atCorner: .UpperRightCorner)
       rightButton.frame = position(rightButton, atCorner: .LowerRightCorner)
+    }
+    
+    switch orientation {
+    case .Portrait:
+      leftButton.frame.origin.y += kButtonOffset
+      rightButton.frame.origin.y += kButtonOffset
+    case .PortraitUpsideDown:
+      leftButton.frame.origin.y -= kButtonOffset
+      rightButton.frame.origin.y -= kButtonOffset
+    case .LandscapeLeft:
+      leftButton.frame.origin.x -= kButtonOffset
+      rightButton.frame.origin.x -= kButtonOffset
+    default:
+      leftButton.frame.origin.x += kButtonOffset
+      rightButton.frame.origin.x += kButtonOffset
+    }
+    
+    if animation == .BeforeAnimation {
+      switch orientation {
+      case .Portrait:
+        leftButton.frame.origin.x -= CGRectGetWidth(leftButton.frame)
+        rightButton.frame.origin.x += CGRectGetWidth(rightButton.frame)
+      case .PortraitUpsideDown:
+        leftButton.frame.origin.x += CGRectGetWidth(leftButton.frame)
+        rightButton.frame.origin.x -= CGRectGetWidth(rightButton.frame)
+      case .LandscapeLeft:
+        leftButton.frame.origin.y -= CGRectGetHeight(leftButton.frame)
+        rightButton.frame.origin.y += CGRectGetHeight(rightButton.frame)
+      default:
+        leftButton.frame.origin.y += CGRectGetHeight(leftButton.frame)
+        rightButton.frame.origin.y -= CGRectGetHeight(rightButton.frame)
+      }
     }
   }
   
@@ -106,18 +142,6 @@ class NAGFirstPhotoOverlayView: UIView {
       newFrame.origin = CGPoint(x: screenWidth - elementWidth, y: 0)
     }
     
-    let orientation = UIDevice.currentDevice().orientation
-    switch orientation {
-    case .Portrait:
-      newFrame.origin.y += kButtonOffset
-    case .PortraitUpsideDown:
-      newFrame.origin.y -= kButtonOffset
-    case .LandscapeLeft:
-      newFrame.origin.x -= kButtonOffset
-    default:
-      newFrame.origin.x += kButtonOffset
-    }
-    
     return newFrame
   }
   
@@ -128,7 +152,7 @@ class NAGFirstPhotoOverlayView: UIView {
     leftButton = createLeftButton()
     rightButton = createRightButton()
     
-    layout(UIDevice.currentDevice().orientation)
+    layout(UIDevice.currentDevice().orientation, animation: .BeforeAnimation)
     
     addSubview(leftButton)
     addSubview(rightButton)
@@ -183,7 +207,7 @@ class NAGFirstPhotoOverlayView: UIView {
     
     // единожды анимируем появление управляющих элементов - кнопок
     UIView.animateWithDuration(1.0, animations: {
-      self.layout(UIDevice.currentDevice().orientation)
+      self.layout(UIDevice.currentDevice().orientation, animation: .AfterAnimation)
       })
     
     // подписываемся на получение уведомлений об изменении ориентации девайса
