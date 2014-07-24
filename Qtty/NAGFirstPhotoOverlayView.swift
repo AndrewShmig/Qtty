@@ -33,6 +33,7 @@ class NAGFirstPhotoOverlayView: UIView {
   
   var leftButton: UIButton!
   var rightButton: UIButton!
+  var prevDeviceOrientation: UIDeviceOrientation = .Portrait
   
   init(frame: CGRect) {
     super.init(frame: frame)
@@ -61,11 +62,79 @@ class NAGFirstPhotoOverlayView: UIView {
     
     let currentOrientation = UIDevice.currentDevice().orientation
     
+    // обновляем расположение кнопок на экране
     switch currentOrientation {
     case .LandscapeLeft, .LandscapeRight, .Portrait, .PortraitUpsideDown:
       self.layout(currentOrientation, animation: .AfterAnimation)
     default:
       break
+    }
+    
+    // анимируем поворот кнопок в зависимости от текущей ориентации устройства
+    UIView.animateWithDuration(0.3, animations: {
+      self.rotate(from: self.prevDeviceOrientation, to: currentOrientation)
+      })
+  }
+  
+  // создаем кнопки сетки и фиксации фотографии + саму сетку на доп слое
+  func createControlElements() {
+    leftButton = createLeftButton()
+    rightButton = createRightButton()
+    
+    let orientation = UIDevice.currentDevice().orientation
+    layout(orientation, animation: .BeforeAnimation)
+    rotate(from:prevDeviceOrientation, to:orientation)
+    
+    addSubview(leftButton)
+    addSubview(rightButton)
+  }
+  
+  // создаем левую кнопку
+  func createLeftButton() -> UIButton {
+    let button = UIButton()
+    button.frame.size = kButtonSize
+    button.setImage(UIImage(named: "grid_icon"), forState: UIControlState.Normal)
+    button.backgroundColor = UIColor(red: 0.803, green: 0.788, blue: 0.788, alpha: 0.5)
+    button.addTarget(self, action: "showGrid:", forControlEvents: .TouchUpInside)
+    
+    return button
+  }
+  
+  // создаем правую кнопку
+  func createRightButton() -> UIButton {
+    let button = UIButton()
+    button.frame.size = kButtonSize
+    button.setImage(UIImage(named: "rotate_camera"), forState: UIControlState.Normal)
+    button.backgroundColor = UIColor(red: 0.803, green: 0.788, blue: 0.788, alpha: 0.5)
+    button.addTarget(self, action: "flipCameras:", forControlEvents: .TouchUpInside)
+    
+    return button
+  }
+  
+  // поворачиваем кнопку на нужное кол-во радиан
+  func rotate(#from: UIDeviceOrientation, to: UIDeviceOrientation) {
+    println(__FUNCTION__)
+    
+    var angle: CGFloat
+    
+    switch (from, to) {
+    case (.Portrait, .LandscapeLeft), (.LandscapeLeft, .PortraitUpsideDown), (.PortraitUpsideDown, .LandscapeRight), (.LandscapeRight, .Portrait): // +90 degrees
+      angle = CGFloat(M_PI) / 2.0
+    case (.Portrait, .LandscapeRight), (.LandscapeRight, .PortraitUpsideDown), (.PortraitUpsideDown, .LandscapeLeft), (.LandscapeLeft, .Portrait): // -90 degrees
+      angle = -CGFloat(M_PI) / 2.0
+    case (.Portrait, .PortraitUpsideDown), (.PortraitUpsideDown, .Portrait), (.LandscapeRight, .LandscapeLeft), (.LandscapeLeft, .LandscapeRight): // +180 degrees
+      angle = CGFloat(M_PI)
+    default:
+      angle = 0.0
+    }
+    
+    let rotationTransformation = CGAffineTransformMakeRotation(angle)
+    leftButton.transform = CGAffineTransformConcat(leftButton.transform, rotationTransformation)
+    rightButton.transform = CGAffineTransformConcat(rightButton.transform, rotationTransformation)
+    
+    // обновим предыдущее значение ориентации устройства
+    if to != .Unknown && to != .FaceUp && to != .FaceDown {
+      prevDeviceOrientation = to
     }
   }
   
@@ -143,39 +212,6 @@ class NAGFirstPhotoOverlayView: UIView {
     }
     
     return newFrame
-  }
-  
-  // создаем кнопки сетки и фиксации фотографии + саму сетку на доп слое
-  func createControlElements() {
-    leftButton = createLeftButton()
-    rightButton = createRightButton()
-    
-    layout(UIDevice.currentDevice().orientation, animation: .BeforeAnimation)
-    
-    addSubview(leftButton)
-    addSubview(rightButton)
-  }
-  
-  // создаем левую кнопку
-  func createLeftButton() -> UIButton {
-    let button = UIButton()
-    button.frame.size = kButtonSize
-    button.setImage(UIImage(named: "grid_icon"), forState: UIControlState.Normal)
-    button.backgroundColor = UIColor(red: 0.803, green: 0.788, blue: 0.788, alpha: 0.5)
-    button.addTarget(self, action: "showGrid:", forControlEvents: .TouchUpInside)
-    
-    return button
-  }
-  
-  // создаем правую кнопку
-  func createRightButton() -> UIButton {
-    let button = UIButton()
-    button.frame.size = kButtonSize
-    button.setImage(UIImage(named: "rotate_camera"), forState: UIControlState.Normal)
-    button.backgroundColor = UIColor(red: 0.803, green: 0.788, blue: 0.788, alpha: 0.5)
-    button.addTarget(self, action: "flipCameras:", forControlEvents: .TouchUpInside)
-    
-    return button
   }
   
   // после нажатия на кнопку "Показать сетку" отображаем сетку
