@@ -15,6 +15,7 @@ let kNAGImagePickerControllerViewDidDisappearNotification = "NAGImagePickerContr
 let kNAGImagePickerControllerViewWillDisappearNotification = "NAGImagePickerControllerViewWillDisappearNotification"
 let kNAGImagePickerControllerFlipCameraNotification = "NAGImagePickerControllerFlipCameraNotification"
 let kNAGImagePickerControllerCaptureImageNotification = "NAGImagePickerControllerCaptureImageNotification"
+let kNAGImagePickerControllerUserDidCaptureImageNotification = "NAGImagePickerControllerUserDidCaptureImageNotification"
 
 class NAGImagePickerController: UIImagePickerController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
@@ -59,7 +60,7 @@ class NAGImagePickerController: UIImagePickerController, UIImagePickerController
   
   //  сделали фотографию, теперь надо её зафиксировать и отобразить другую оверлейную вьюху
   func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
-    println(info)
+    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerUserDidCaptureImageNotification, object: self)
   }
   
   deinit {

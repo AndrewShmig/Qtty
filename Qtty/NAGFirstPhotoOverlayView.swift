@@ -52,8 +52,8 @@ class NAGFirstPhotoOverlayView: UIView {
     let pinchGR = UIPinchGestureRecognizer(target: self, action: nil)
     addGestureRecognizer(pinchGR)
     
-    // подписываем на нотификации о вызове метода viewDidAppear: нашего ImagePickerController
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "imagePickerControllerViewDidAppear:", name: kNAGImagePickerControllerViewDidAppearNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideControlElements:", name: kNAGImagePickerControllerUserDidCaptureImageNotification, object: nil)
   }
   
   // обрабатываем повороты девайса
@@ -77,13 +77,13 @@ class NAGFirstPhotoOverlayView: UIView {
   }
   
   // после нажатия на кнопку "Показать сетку" отображаем сетку
-  func showGrid(sender:UIView) {
+  func invertGridVisibility() {
     println(__FUNCTION__)
-    self.superview.viewWithTag(self.kGridViewTag).hidden = !self.superview.viewWithTag(self.kGridViewTag).hidden
+    superview.viewWithTag(kGridViewTag).hidden = !superview.viewWithTag(kGridViewTag).hidden
   }
   
   // переключаемся на фронтальную камеру
-  func flipCameras(sender:UIView) {
+  func flipCameras() {
     println(__FUNCTION__)
     // чтобы не выносить cameraView в глобальную область видимости воспользуемся нотификациями
     NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerFlipCameraNotification, object: nil)
@@ -111,10 +111,33 @@ class NAGFirstPhotoOverlayView: UIView {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidChangeOrientation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
   }
   
+  // анимация исчезновения управляющих элементов после того, как пользователь
+  // сделал снимок
+  func hideControlElements(notification: NSNotification) {
+    
+    // отписываем от уведомлений текущий слой для того, чтобы при анимированном 
+    // исчезновении управляющих элементов и повороте устройства пользователем
+    // мы не обрабатывали поворот в методе deviceDidChangeOrientation
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+    
+    // прячем сетку
+    if !superview.viewWithTag(kGridViewTag).hidden {
+      invertGridVisibility()
+    }
+    
+    // анимируем скрытие управляющих элементов
+    UIView.animateWithDuration(1.0, animations: {
+      self.layout(UIDevice.currentDevice().orientation, animation: .BeforeAnimation)
+      }, completion: { value in
+        let imagePickerController = notification.object as NAGImagePickerController
+        imagePickerController.cameraOverlayView = nil
+      })
+  }
+  
   // создаем кнопки сетки и фиксации фотографии + саму сетку на доп слое
   private func createControlElements() {
-    leftButton = createButton(image: UIImage(named: "grid_icon"), action: "showGrid:")
-    rightButton = createButton(image: UIImage(named: "rotate_camera"), action: "flipCameras:")
+    leftButton = createButton(image: UIImage(named: "grid_icon"), action: "invertGridVisibility")
+    rightButton = createButton(image: UIImage(named: "rotate_camera"), action: "flipCameras")
     
     let orientation = UIDevice.currentDevice().orientation
     layout(orientation, animation: .BeforeAnimation)
