@@ -130,7 +130,7 @@ class NAGFirstPhotoOverlayView: UIView {
       self.layout(UIDevice.currentDevice().orientation, animation: .BeforeAnimation)
       }, completion: { value in
         let imagePickerController = notification.object as NAGImagePickerController
-        imagePickerController.cameraOverlayView = nil
+        imagePickerController.cameraOverlayView = NAGPhotoFiltersOverlayView(imageInfo: notification.userInfo, frame: self.frame)
       })
   }
   

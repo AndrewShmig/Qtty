@@ -36,11 +36,6 @@
 - (instancetype)initWithDelegate:(id <VKRequestDelegate>)delegate
                             user:(VKUser *)user
 {
-    VK_LOG(@"%@", @{
-            @"delegate" : delegate,
-            @"user"     : user
-    });
-
     self = [super init];
 
     if (self) {
