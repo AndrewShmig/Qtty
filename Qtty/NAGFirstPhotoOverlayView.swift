@@ -120,6 +120,9 @@ class NAGFirstPhotoOverlayView: UIView {
     // мы не обрабатывали поворот в методе deviceDidChangeOrientation
     NSNotificationCenter.defaultCenter().removeObserver(self)
     
+    // блокируем взаимодействие UIImagePickerController с пользователем
+    (notification.object as NAGImagePickerController).view.userInteractionEnabled = false
+    
     // прячем сетку
     if !superview.viewWithTag(kGridViewTag).hidden {
       invertGridVisibility()
