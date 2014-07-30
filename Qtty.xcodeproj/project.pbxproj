@@ -18,7 +18,7 @@
 		D57F8474196549D700893354 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D57F8473196549D700893354 /* logo@2x.png */; };
 		D59EBBC5197E525000CC16D7 /* NAGGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EBBC4197E525000CC16D7 /* NAGGridView.swift */; };
 		D59EBBD2197FA52000CC16D7 /* grid_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D59EBBD1197FA52000CC16D7 /* grid_icon@2x.png */; };
-		D5AA1C81198631700052E442 /* NAGPhotoFiltersOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AA1C80198631700052E442 /* NAGPhotoFiltersOverlayView.swift */; };
+		D5AA1C81198631700052E442 /* NAGPhotoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AA1C80198631700052E442 /* NAGPhotoOverlayView.swift */; };
 		D5AA1C83198641A90052E442 /* DictionaryOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AA1C82198641A90052E442 /* DictionaryOps.swift */; };
 		D5AB2D281965A9E900268FAB /* VKAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AB2D271965A9E900268FAB /* VKAuthorizationViewController.swift */; };
 		D5BAC3391977C49D0068A75D /* NAGFirstPhotoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */; };
@@ -61,7 +61,7 @@
 		D57F8473196549D700893354 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		D59EBBC4197E525000CC16D7 /* NAGGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGGridView.swift; sourceTree = "<group>"; };
 		D59EBBD1197FA52000CC16D7 /* grid_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grid_icon@2x.png"; sourceTree = "<group>"; };
-		D5AA1C80198631700052E442 /* NAGPhotoFiltersOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGPhotoFiltersOverlayView.swift; sourceTree = "<group>"; };
+		D5AA1C80198631700052E442 /* NAGPhotoOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGPhotoOverlayView.swift; sourceTree = "<group>"; };
 		D5AA1C82198641A90052E442 /* DictionaryOps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryOps.swift; sourceTree = "<group>"; };
 		D5AB2D271965A9E900268FAB /* VKAuthorizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKAuthorizationViewController.swift; sourceTree = "<group>"; };
 		D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAGFirstPhotoOverlayView.swift; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 			children = (
 				D59EBBC4197E525000CC16D7 /* NAGGridView.swift */,
 				D5BAC3381977C49D0068A75D /* NAGFirstPhotoOverlayView.swift */,
-				D5AA1C80198631700052E442 /* NAGPhotoFiltersOverlayView.swift */,
+				D5AA1C80198631700052E442 /* NAGPhotoOverlayView.swift */,
 			);
 			name = OverlayViews;
 			sourceTree = "<group>";
@@ -353,7 +353,7 @@
 				D59EBBC5197E525000CC16D7 /* NAGGridView.swift in Sources */,
 				D5FC67AE196F086C00E99C54 /* NSData+toBase64.m in Sources */,
 				D5FC67BA196F095A00E99C54 /* VKAccessToken.m in Sources */,
-				D5AA1C81198631700052E442 /* NAGPhotoFiltersOverlayView.swift in Sources */,
+				D5AA1C81198631700052E442 /* NAGPhotoOverlayView.swift in Sources */,
 				D5FC67AF196F086C00E99C54 /* NSString+Utilities.m in Sources */,
 				D508A9F819652D600086620F /* MainScreen.swift in Sources */,
 				D5FC67BD196F097700E99C54 /* VKStorage.m in Sources */,

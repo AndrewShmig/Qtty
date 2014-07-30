@@ -130,10 +130,10 @@ class NAGFirstPhotoOverlayView: UIView {
     
     // анимируем скрытие управляющих элементов
     UIView.animateWithDuration(1.0, animations: {
-      self.layout(UIDevice.currentDevice().orientation, animation: .BeforeAnimation)
+      self.layout(self.prevDeviceOrientation, animation: .BeforeAnimation)
       }, completion: { value in
         let imagePickerController = notification.object as NAGImagePickerController
-        imagePickerController.cameraOverlayView = NAGPhotoFiltersOverlayView(imageInfo: notification.userInfo, frame: self.frame)
+        imagePickerController.cameraOverlayView = NAGPhotoOverlayView(imageInfo: notification.userInfo, frame: self.frame)
       })
   }
   

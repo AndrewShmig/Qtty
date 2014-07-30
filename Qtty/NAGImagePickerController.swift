@@ -17,7 +17,7 @@ let kNAGImagePickerControllerFlipCameraNotification = "NAGImagePickerControllerF
 let kNAGImagePickerControllerCaptureImageNotification = "NAGImagePickerControllerCaptureImageNotification"
 let kNAGImagePickerControllerUserDidCaptureImageNotification = "NAGImagePickerControllerUserDidCaptureImageNotification"
 
-let kNAGDeviceOrientationKey = "NAGDeviceOrientationKey"
+let kNAGDeviceOrientationKey: NSString! = "NAGDeviceOrientationKey"
 
 class NAGImagePickerController: UIImagePickerController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
