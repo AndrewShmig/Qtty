@@ -17,8 +17,6 @@ let kNAGImagePickerControllerFlipCameraNotification = "NAGImagePickerControllerF
 let kNAGImagePickerControllerCaptureImageNotification = "NAGImagePickerControllerCaptureImageNotification"
 let kNAGImagePickerControllerUserDidCaptureImageNotification = "NAGImagePickerControllerUserDidCaptureImageNotification"
 
-let kNAGDeviceOrientationKey: NSString! = "NAGDeviceOrientationKey"
-
 class NAGImagePickerController: UIImagePickerController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
   override func viewDidLoad() {
@@ -62,11 +60,7 @@ class NAGImagePickerController: UIImagePickerController, UIImagePickerController
   
   //  сделали фотографию, теперь надо её зафиксировать и отобразить другую оверлейную вьюху
   func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
-    var imageInfo = [NSObject: AnyObject]()
-    imageInfo[kNAGDeviceOrientationKey] = String(UIDevice.currentDevice().orientation.toRaw())
-    imageInfo += info
-    
-    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerUserDidCaptureImageNotification, object: self, userInfo: imageInfo)
+    NSNotificationCenter.defaultCenter().postNotificationName(kNAGImagePickerControllerUserDidCaptureImageNotification, object: self, userInfo: info)
   }
   
   deinit {
