@@ -10,6 +10,9 @@ import UIKit
 
 class NAGPhotoOverlayView: UIView {
   
+  let kPhotoViewTag: Int = 1
+  let kControlsViewTag: Int = 2
+  
   var photoView: UIImageView!
   var originalPhoto: UIImage!
   
@@ -19,6 +22,9 @@ class NAGPhotoOverlayView: UIView {
     originalPhoto = imageInfo[UIImagePickerControllerOriginalImage] as UIImage
     photoView = createPhotoLayer(image: originalPhoto)
     addSubview(photoView)
+    
+    let controlsView = createControls()
+    photoView.addSubview(controlsView)
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidChangeOrientation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
   }
@@ -41,7 +47,16 @@ class NAGPhotoOverlayView: UIView {
   
   private func createPhotoLayer(#image: UIImage!) -> UIImageView {
     let layer = UIImageView(frame: frame)
+    layer.tag = kPhotoViewTag
     layer.image = (image.imageOrientation == .Down || image.imageOrientation == .Up) ? UIImage(CGImage: image.CGImage, scale: image.scale, orientation: .Right) : image
+    
+    return layer
+  }
+  
+  private func createControls() -> UIView {
+    let layer = UIView(frame: frame)
+    layer.tag = kControlsViewTag
+    layer.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
     
     return layer
   }
