@@ -8,7 +8,7 @@
 
 import Foundation
 
-@assignment func += <T, G>(inout left: [T: G], right: [T: G]) {
+func += <T, G>(inout left: [T: G], right: [T: G]) {
   for (key, value) in right {
     left[key] = value
   }

@@ -11,7 +11,11 @@ import Foundation
 
 class NAGShadowedView: UIView {
   
-  init(frame: CGRect) {
+  convenience required init(coder aDecoder: NSCoder!) {
+    self.init(frame: UIScreen.mainScreen().bounds)
+  }
+  
+  override init(frame: CGRect) {
     super.init(frame: frame)
     
     // создаем тень

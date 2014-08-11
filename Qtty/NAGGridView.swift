@@ -12,7 +12,11 @@ class NAGGridView: UIView {
   
   let kVisualBlocks: CGFloat = 3
   
-  init(frame: CGRect) {
+  convenience required init(coder aDecoder: NSCoder!) {
+    self.init(frame: UIScreen.mainScreen().bounds)
+  }
+  
+  override init(frame: CGRect) {
     super.init(frame: frame)
     backgroundColor = UIColor.clearColor()
   }
@@ -30,16 +34,16 @@ class NAGGridView: UIView {
     // чертим горизонтальные линии (портретный режим)
     let horizontalLines = screenHeight / kVisualBlocks
     let countHLines = screenHeight / horizontalLines
-    for i in 1..<countHLines {
-      CGContextMoveToPoint(context, 0, i * horizontalLines)
+    for var i: CGFloat = 1; i < countHLines; i++ {
+      CGContextMoveToPoint(context, 0.0, i * horizontalLines)
       CGContextAddLineToPoint(context, screenWidth, i * horizontalLines)
     }
     
     // чертим вертикальные линиии (портретный режим)
     let verticalLines = screenWidth / kVisualBlocks
     let countVLines = screenWidth / verticalLines
-    for i in 1..<countVLines {
-      CGContextMoveToPoint(context, i * verticalLines, 0)
+    for var i: CGFloat = 1; i < countVLines; i++ {
+      CGContextMoveToPoint(context, i * verticalLines, 0.0)
       CGContextAddLineToPoint(context, i * verticalLines, screenHeight)
     }
     

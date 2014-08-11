@@ -35,7 +35,11 @@ class NAGFirstPhotoOverlayView: UIView {
   var rightButton: UIView!
   var prevDeviceOrientation: UIDeviceOrientation = .Portrait
   
-  init(frame: CGRect) {
+  convenience required init(coder aDecoder: NSCoder!) {
+    self.init(frame: UIScreen.mainScreen().bounds)
+  }
+  
+  override init(frame: CGRect) {
     super.init(frame: frame)
     
     // создаем вьюху с сеткой и вставляем за управляющие элементы
@@ -79,7 +83,7 @@ class NAGFirstPhotoOverlayView: UIView {
   // после нажатия на кнопку "Показать сетку" отображаем сетку
   func invertGridVisibility() {
     println(__FUNCTION__)
-    superview.viewWithTag(kGridViewTag).hidden = !superview.viewWithTag(kGridViewTag).hidden
+    superview!.viewWithTag(kGridViewTag)!.hidden = !superview!.viewWithTag(kGridViewTag)!.hidden
   }
   
   // переключаемся на фронтальную камеру
@@ -124,7 +128,7 @@ class NAGFirstPhotoOverlayView: UIView {
     (notification.object as NAGImagePickerController).view.userInteractionEnabled = false
     
     // прячем сетку
-    if !superview.viewWithTag(kGridViewTag).hidden {
+    if !superview!.viewWithTag(kGridViewTag)!.hidden {
       invertGridVisibility()
     }
     

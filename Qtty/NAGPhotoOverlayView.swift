@@ -16,6 +16,10 @@ class NAGPhotoOverlayView: UIView {
   var photoView: UIImageView!
   var originalPhoto: UIImage!
   
+  convenience required init(coder aDecoder: NSCoder!) {
+    self.init(imageInfo: [:], frame: UIScreen.mainScreen().bounds)
+  }
+  
   init(imageInfo: [NSObject : AnyObject]!, frame: CGRect) {
     super.init(frame: frame)
     

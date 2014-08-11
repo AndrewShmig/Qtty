@@ -64,7 +64,7 @@ class VKAuthorizationViewController: UIViewController, VKConnectorDelegate, UIAl
     
     //        добавляем вьюхи на основную
     self.view.addSubview(topView)
-    self.view.addSubview(self.webView)
+    self.view.addSubview(self.webView!)
     
     //        начинаем уже осуществлять запрос к серверу ВК для загрузки страницы авторизации
     VKConnector.sharedInstance().startWithAppID("4455228", permissons: ["photo", "wall", "friends"], webView: self.webView, delegate: self)
@@ -85,7 +85,7 @@ class VKAuthorizationViewController: UIViewController, VKConnectorDelegate, UIAl
   }
   
   func connector(connector:VKConnector!, webViewDidFinishLoad webView: UIWebView!) {
-    webView.viewWithTag(kActivityIndicatorTag).removeFromSuperview()
+    webView.viewWithTag(kActivityIndicatorTag)!.removeFromSuperview()
   }
   
   func connector(connector:VKConnector!, connectionError error: NSError!) {
